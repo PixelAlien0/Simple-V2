@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized RPG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gray: { 900: '#0b090a', 800: '#1f1f1f' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Auth Page -->
+    <section id="auth-page" class="fixed inset-0 z-[200] flex flex-col md:flex-row transition-opacity duration-500 bg-white dark:bg-gray-900">
+        
+        <!-- Left Side: Typography / Branding -->
+        <div class="w-full md:w-1/2 h-full bg-gray-100 dark:bg-black flex flex-col justify-center p-12 md:p-24 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none select-none overflow-hidden">
+                <span id="auth-parallax-text" class="text-[20rem] font-black leading-none text-gray-900 dark:text-white absolute -top-20 -left-20 transition-transform duration-100 ease-out will-change-transform">RPG</span>
+            </div>
+            
+            <div class="relative z-10">
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-gray-900 dark:text-white leading-[0.85] mb-8">
+                    RPG<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600 dark:from-gray-500 dark:to-gray-700">CORE</span>
+                </h1>
+                <p class="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 max-w-md leading-relaxed tracking-wide">
+                    A minimalist dungeon crawler. <br>
+                    Loot. Level. Ascend.
+                </p>
+                <div class="mt-12 flex gap-3">
+                    <div class="h-1.5 w-24 bg-gray-900 dark:bg-white"></div>
+                    <div class="h-1.5 w-4 bg-gray-400 dark:bg-gray-700"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login/Register Form -->
+        <div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center p-8 md:p-24 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800">
+            <div class="w-full max-w-sm">
+                
+                <!-- Login Form -->
+                <form id="login-form" class="space-y-6" onsubmit="event.preventDefault(); Game.auth.loginSubmit();">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Welcome Back</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Enter your credentials to continue.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Username</label>
+                            <input type="text" id="login-username" class="w-full bg-gray-50 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 px-4 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors font-bold text-lg" placeholder="Username" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Password</label>
+                            <input type="password" id="login-password" class="w-full bg-gray-50 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 px-4 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors font-bold text-lg" placeholder="••••••••" required>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="login-remember" class="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900">
+                            <label for="login-remember" class="text-xs font-bold text-gray-500 uppercase tracking-wide select-none cursor-pointer">Remember Me</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-black uppercase tracking-widest py-4 hover:bg-gray-700 dark:hover:bg-gray-200 transition-all mt-6">
+                        Enter World
+                    </button>
+                    
+                    <div class="text-center mt-8">
+                        <span class="text-sm text-gray-500">New here?</span>
+                        <a href="#" onclick="Game.auth.toggleForm('register')" class="text-sm text-gray-900 dark:text-white font-bold hover:underline ml-1">Create account</a>
+                    </div>
+                </form>
+
+                <!-- Register Form (Hidden) -->
+                <form id="register-form" class="space-y-6 hidden" onsubmit="event.preventDefault(); Game.auth.registerSubmit();">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Join the Core</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Create your identity.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Choose Username</label>
+                            <input type="text" id="reg-username" class="w-full bg-gray-50 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 px-4 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors font-bold text-lg" placeholder="Username" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Choose Password</label>
+                            <input type="password" id="reg-password" class="w-full bg-gray-50 dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 px-4 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors font-bold text-lg" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-black uppercase tracking-widest py-4 hover:bg-gray-700 dark:hover:bg-gray-200 transition-all mt-6">
+                        Initialize Profile
+                    </button>
+                    
+                    <div class="text-center mt-8">
+                        <span class="text-sm text-gray-500">Already have an ID?</span>
+                        <a href="#" onclick="Game.auth.toggleForm('login')" class="text-sm text-gray-900 dark:text-white font-bold hover:underline ml-1">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div id="game-layout" class="flex flex-grow h-screen overflow-hidden hidden opacity-0 transition-opacity duration-1000">
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 transform -translate-x-[15rem] hover:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 gap-4 shadow-2xl">
+            <h1 class="text-2xl font-bold text-center mb-4 tracking-wider">RPG <span class="text-gray-500 dark:text-gray-400">CORE</span></h1>
+            
+            <nav class="flex flex-col gap-2">
+                <button onclick="Game.ui.switchPage('dashboard')" class="game-button">Dashboard</button>
+                <button onclick="Game.ui.switchPage('worlds')" class="game-button">Worlds</button>
+                <button onclick="Game.ui.switchPage('explore')" class="game-button">Explore</button>
+                <button onclick="Game.ui.switchPage('quests')" class="game-button">Quests</button>
+                <button onclick="Game.ui.switchPage('inventory')" class="game-button">Inventory</button>
+                <button onclick="Game.ui.switchPage('shop')" class="game-button">Shop</button>
+                <button onclick="Game.ui.switchPage('marketplace')" class="game-button">Marketplace</button>
+                <button onclick="Game.ui.switchPage('gacha')" class="game-button">Gacha</button>
+                <button onclick="Game.ui.switchPage('ranks')" class="game-button">Rank</button>
+                <button onclick="Game.ui.switchPage('leaderboard')" class="game-button">Leaderboard</button>
+                <button onclick="Game.ui.switchPage('settings')" class="game-button">Settings</button>
+                <button id="btn-admin-panel" onclick="Game.ui.switchPage('admin')" class="game-button hidden border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">Admin Panel</button>
+            </nav>
+
+            <div class="mt-auto flex flex-col gap-2">
+                <button onclick="Game.ui.switchPage('chat')" class="game-button">Chat</button>
+                <button onclick="Game.save()" id="btn-save-game" class="game-button">
+                    Save Game
+                </button>
+                <button onclick="Game.auth.logout()" class="game-button text-red-500 hover:text-red-600 border-red-200 hover:border-red-400 dark:border-red-900/30 dark:hover:border-red-800">
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Game Content Area -->
+        <main class="game-container flex-grow p-6 overflow-y-auto relative">
+            
+            <!-- Dashboard Page -->
+            <section id="game-dashboard-page" class="page-section w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Dashboard
+                    </h1>
+                    <div class="flex items-center gap-3 px-6 py-2 rounded-none border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50">
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Level</span>
+                        <span id="dash-level" class="text-xl font-black font-mono">1</span>
+                        <span id="dash-rank" class="text-xs font-bold uppercase tracking-widest text-gray-400 border-l border-gray-200 dark:border-gray-700 pl-3">Adventurer</span>
+                    </div>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 w-full">
+                    
+                    <!-- Health (Large Card) -->
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-64 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-gray-500">
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-400 z-10">Vitality</span>
+                        <div class="z-10">
+                            <div id="dash-hp" class="text-5xl font-black tracking-tighter font-mono text-gray-900 dark:text-white">100 / 100</div>
+                            <div class="text-xs text-gray-500 mt-1">Current Health</div>
+                        </div>
+                    </div>
+
+                    <!-- XP (Large Card) -->
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-64 relative overflow-hidden group">
+                         <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-gray-500">
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path></svg>
+                        </div>
+                        <div class="flex justify-between items-start z-10">
+                            <span class="text-sm font-bold uppercase tracking-widest text-gray-400">Experience</span>
+                        </div>
+                        <div class="z-10">
+                             <div id="dash-xp" class="text-4xl font-black tracking-tighter font-mono mb-2 text-gray-900 dark:text-white">0 / 100</div>
+                             <div class="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div id="xp-progress-bar" class="h-full bg-gray-700 dark:bg-gray-300 transition-all duration-500 ease-out" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gold (Small Card) -->
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-center items-center h-64 text-center relative overflow-hidden group">
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 relative z-10">Wealth</span>
+                        <div id="dash-gold" class="text-6xl font-black tracking-tighter text-gray-800 dark:text-gray-200 relative z-10">0</div>
+                        <span class="text-xs text-gray-500 mt-2 relative z-10">Gold Coins</span>
+                    </div>
+
+                    <!-- Stats Row (Full Width or Split) -->
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Attack Power</span>
+                            <div id="dash-damage" class="text-4xl font-black font-mono text-gray-900 dark:text-white">0 - 0</div>
+                        </div>
+                        <div class="p-4 bg-gray-100 dark:bg-gray-800/50 rounded-md">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Defense</span>
+                            <div id="dash-defense" class="text-4xl font-black font-mono text-gray-900 dark:text-white">0</div>
+                        </div>
+                        <div class="p-4 bg-gray-100 dark:bg-gray-800/50 rounded-md">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 p-8 rounded-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Luck</span>
+                            <div id="dash-luck" class="text-4xl font-black font-mono text-gray-900 dark:text-white">0</div>
+                        </div>
+                        <div class="p-4 bg-gray-100 dark:bg-gray-800/50 rounded-md">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Worlds Page -->
+            <section id="worlds-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        World Select
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Choose your destination</p>
+                </header>
+                <div id="worlds-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                    <!-- Worlds injected by JS -->
+                </div>
+            </section>
+
+            <!-- Explore Page -->
+            <section id="explore-page" class="page-section hidden-page w-full max-w-6xl mx-auto">
+                <header class="w-full mb-8 flex flex-col items-center justify-center relative">
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-gray-900 dark:text-white uppercase">
+                        Exploration
+                    </h1>
+                    
+                    <!-- World & Zone Info -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="flex items-center gap-3 px-4 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-sm">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">World</span>
+                            <span id="explore-world-name" class="text-sm font-bold text-gray-800 dark:text-gray-200">Green Valley</span>
+                        </div>
+                        <!-- Zone Selector Container (Populated by JS) -->
+                        <div id="explore-zone-selector" class="flex flex-wrap justify-center gap-2 mt-1"></div>
+                        <!-- Mastery Container (Populated by JS) -->
+                        <div id="explore-mastery-container" class="w-full max-w-xs mt-2"></div>
+                    </div>
+                </header>
+                
+                <!-- Tabs -->
+                <div class="flex justify-center gap-1 mb-6 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit mx-auto">
+                    <button id="tab-btn-adventure" onclick="Game.explore.switchTab('adventure')" class="px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm transition-all">Adventure</button>
+                    <button id="tab-btn-gathering" onclick="Game.explore.switchTab('gathering')" class="px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-all">Gathering</button>
+                </div>
+
+                <!-- Adventure Panel -->
+                <div id="explore-adventure-panel" class="animate-fade-in w-full">
+                    
+                    <!-- Battle Arena / Status Area -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
+                        
+                        <!-- Player Card -->
+                        <div id="explore-player-stats" class="md:col-span-5 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm relative overflow-hidden group transition-all duration-300 hover:shadow-md">
+                            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity text-gray-500">
+                                <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-lg">👤</div>
+                                        <div>
+                                            <div class="text-xs font-bold uppercase tracking-widest text-gray-400">Player</div>
+                                            <div class="font-black text-lg leading-none">Lvl <span id="combat-level">1</span></div>
+                                            <div class="w-16 h-1 bg-gray-100 dark:bg-gray-800 rounded-full mt-1 overflow-hidden">
+                                                <div id="combat-xp-bar" class="h-full bg-blue-500" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400">XP</div>
+                                        <div id="combat-xp-text" class="font-mono text-xs">0/100</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-end mb-1">
+                                        <span class="text-xs font-bold text-gray-500">HP</span>
+                                        <span id="combat-hp" class="text-2xl font-black font-mono text-gray-900 dark:text-white">100</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+                                        <div id="combat-hp-bar" class="h-full bg-green-500 transition-all duration-300" style="width: 100%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2 text-xs font-mono text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg">
+                                    <div class="flex justify-between">
+                                        <span>DMG</span>
+                                        <span id="combat-damage" class="text-gray-900 dark:text-white font-bold">0-0</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>DEF</span>
+                                        <span id="combat-defense" class="text-gray-900 dark:text-white font-bold">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VS / Status Indicator (Desktop) -->
+                        <div class="hidden md:flex md:col-span-2 flex-col items-center justify-center text-gray-300 dark:text-gray-700 font-black text-4xl italic opacity-20 select-none">
+                            VS
+                        </div>
+
+                        <!-- Enemy Card -->
+                        <div id="explore-enemy-stats" class="md:col-span-5 p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm relative overflow-hidden opacity-50 transition-all duration-300">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+                            <div class="absolute top-0 right-0 p-4 opacity-5 transition-opacity text-red-500">
+                                <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            </div>
+
+                            <div class="relative z-10">
+                                <div class="flex justify-between items-start mb-6">
+                                    <div>
+                                        <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Target</div>
+                                        <div id="enemy-name" class="text-2xl font-black text-gray-900 dark:text-white truncate">None</div>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-lg text-red-500">⚔️</div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-end mb-1">
+                                        <span class="text-xs font-bold text-gray-500">HP</span>
+                                        <span id="enemy-hp" class="text-2xl font-black font-mono text-red-500">0</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+                                        <div id="enemy-hp-bar" class="h-full bg-red-500 transition-all duration-300" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log & Actions Container -->
+                    <div class="flex flex-col-reverse md:flex-row gap-4 h-[500px] md:h-80">
+                        
+                        <!-- Action Buttons (Left/Bottom) -->
+                        <div id="explore-action-buttons" class="md:w-1/3 grid grid-cols-2 gap-3 h-full content-start">
+                            <button id="btn-explore" class="col-span-2 game-button bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 py-4 text-sm shadow-md" onclick="Game.explore.performAction()">
+                                <span class="text-xl block mb-1">🧭</span> Explore
+                            </button>
+                            
+                            <button id="btn-attack" class="game-button bg-red-500 hover:bg-red-600 text-white border-red-600 py-4 text-sm shadow-md disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="Game.combat.attack()">
+                                <span class="text-xl block mb-1">⚔️</span> Attack
+                            </button>
+                            
+                            <button id="btn-heal" class="game-button bg-green-500 hover:bg-green-600 text-white border-green-600 py-4 text-sm shadow-md" onclick="Game.combat.heal()">
+                                <span class="text-xl block mb-1">❤️</span> Heal
+                            </button>
+                            
+                            <button id="btn-flee" class="col-span-2 game-button bg-yellow-500 hover:bg-yellow-600 text-white border-yellow-600 py-3 text-xs shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="Game.combat.flee()">
+                                🏃 Flee
+                            </button>
+                        </div>
+
+                        <!-- Log (Right/Top) -->
+                        <div class="md:w-2/3 h-full flex flex-col">
+                            <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 h-full flex flex-col shadow-inner">
+                                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-800 pb-2">Adventure Log</div>
+                                <div id="explore-dialog" class="flex-grow overflow-y-auto font-mono text-sm space-y-2 pretty-scrollbar pr-2">
+                                    <p class="text-gray-500 italic">The world is quiet...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gathering Panel -->
+                <div id="explore-gathering-panel" class="hidden animate-fade-in w-full max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Mining Card -->
+                        <div class="group relative p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 text-4xl grayscale group-hover:grayscale-0 transition-all">⛏️</div>
+                            <h3 class="text-xl font-black uppercase mb-2 text-gray-900 dark:text-white">Mining</h3>
+                            <p class="text-sm text-gray-500 mb-6">Extract valuable ores from the earth.</p>
+                            
+                            <div class="flex flex-col gap-3">
+                                <button id="btn-gather-mining" onclick="Game.explore.gather('mining')" class="game-button w-full py-3">Mine Rock</button>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="font-bold text-yellow-600">Req: Iron Pickaxe</span>
+                                    <span id="timer-mining" class="font-mono text-gray-400">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foraging Card -->
+                        <div class="group relative p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 text-4xl grayscale group-hover:grayscale-0 transition-all">🫐</div>
+                            <h3 class="text-xl font-black uppercase mb-2 text-gray-900 dark:text-white">Foraging</h3>
+                            <p class="text-sm text-gray-500 mb-6">Gather berries, mushrooms, and wood.</p>
+                            
+                            <div class="flex flex-col gap-3">
+                                <button id="btn-gather-foraging" onclick="Game.explore.gather('foraging')" class="game-button w-full py-3">Forage</button>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="font-bold text-green-600">No Tools</span>
+                                    <span id="timer-foraging" class="font-mono text-gray-400">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quests Page -->
+            <section id="quests-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Bounties
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Daily Tasks & Requests</p>
+                </header>
+                <div id="quests-list" class="flex flex-col gap-4 w-full max-w-4xl mx-auto">
+                    <!-- Quests injected by JS -->
+                </div>
+            </section>
+
+            <!-- Rank Page -->
+            <section id="ranks-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Player Rank
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Ascend the hierarchy</p>
+                </header>
+                <div id="ranks-list" class="flex flex-col gap-4 w-full max-w-3xl">
+                    <!-- Ranks injected by JS -->
+                </div>
+            </section>
+
+            <!-- Leaderboard Page -->
+            <section id="leaderboard-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Leaderboard
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Top 10 Legends</p>
+                </header>
+                <div id="leaderboard-list" class="flex flex-col gap-4 w-full max-w-3xl mx-auto">
+                    <!-- Entries injected by JS -->
+                </div>
+            </section>
+
+            <!-- Shop Page -->
+            <section id="shop-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        General Store
+                    </h1>
+                    <div class="flex items-center gap-3 px-6 py-2 rounded-none border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50">
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Your Gold</span>
+                        <span id="shop-player-gold" class="text-xl font-black font-mono text-gray-800 dark:text-gray-200">0</span>
+                    </div>
+                </header>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                    <!-- Buy Section -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-center">Buy Items</h2>
+                        <div id="shop-buy-list" class="rounded-none border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 h-96 overflow-y-auto pretty-scrollbar">
+                            <!-- Items to buy injected by JS -->
+                        </div>
+                    </div>
+                    <!-- Sell Section -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-center">Sell Items</h2>
+                        <div id="shop-sell-list" class="rounded-none border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 h-96 overflow-y-auto pretty-scrollbar">
+                            <!-- Player inventory to sell injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marketplace Page -->
+            <section id="marketplace-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Marketplace
+                    </h1>
+                    <div class="flex items-center gap-3 px-6 py-2 rounded-none border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50">
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Your Gold</span>
+                        <span id="market-player-gold" class="text-xl font-black font-mono text-gray-800 dark:text-gray-200">0</span>
+                    </div>
+                </header>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+                    <!-- Listings -->
+                    <div class="lg:col-span-2">
+                        <h3 class="text-xl font-bold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">Active Listings</h3>
+                        <div id="market-listings" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pretty-scrollbar p-1">
+                            <!-- Listings injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Sell Form -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 sticky top-6">
+                            <h3 class="text-xl font-bold mb-4">List Item</h3>
+                            <div class="mb-4">
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Select Item</label>
+                                <select id="market-sell-select" class="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-bold focus:outline-none focus:border-gray-900 dark:focus:border-white">
+                                    <option value="">Select an item...</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Price (Gold)</label>
+                                <input type="number" id="market-sell-price" class="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 font-mono font-bold focus:outline-none focus:border-gray-900 dark:focus:border-white" placeholder="0">
+                            </div>
+                            <button onclick="Game.marketplace.listItem()" class="w-full py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+                                List for Sale
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gacha Page -->
+            <section id="gacha-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Summon
+                    </h1>
+                    <div class="flex items-center gap-3 px-6 py-2 rounded-none border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50">
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Your Gold</span>
+                        <span id="gacha-player-gold" class="text-xl font-black font-mono text-gray-800 dark:text-gray-200">0</span>
+                    </div>
+                </header>
+                <div id="gacha-banners" class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                    <!-- Banners injected by JS -->
+                </div>
+            </section>
+
+            <!-- Chat Page -->
+            <section id="chat-page" class="page-section hidden-page w-full max-w-7xl mx-auto h-[85vh] flex flex-col">
+                <header class="w-full mb-4 flex items-center justify-between shrink-0 border-b border-gray-200 dark:border-gray-800 pb-4">
+                    <div>
+                        <h1 class="text-3xl font-black tracking-tighter text-gray-900 dark:text-white uppercase">Comms</h1>
+                        <p class="text-gray-500 uppercase tracking-widest text-xs">Local Channel</p>
+                    </div>
+                    <button onclick="Game.chat.clearChat()" class="p-2 text-gray-400 hover:text-red-500 transition-colors" title="Clear Chat">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                </header>
+                
+                <div class="w-full flex-grow flex overflow-hidden border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm bg-white dark:bg-gray-900">
+                    
+                    <!-- Main Chat Area -->
+                    <div class="flex-grow flex flex-col relative bg-gray-50 dark:bg-gray-900/50">
+                        <!-- Chat Log -->
+                        <div id="chat-log" class="flex-grow overflow-y-auto p-6 space-y-3 pretty-scrollbar flex flex-col">
+                            <!-- Messages injected here -->
+                        </div>
+                        
+                        <!-- Typing Indicator -->
+                        <div id="chat-typing-indicator" class="px-6 py-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 opacity-0 transition-opacity min-h-[1.5rem]"></div>
+
+                        <!-- Input Area -->
+                        <div class="sticky bottom-0 z-10 p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+                            <form onsubmit="event.preventDefault(); Game.chat.sendMessage();" class="flex gap-2">
+                                <input type="text" id="chat-input" oninput="Game.chat.handleTyping()" class="flex-grow px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 transition-all rounded-lg" placeholder="Type a message..." autocomplete="off">
+                                <button type="submit" class="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold uppercase tracking-widest text-xs hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors rounded-lg shadow-lg">
+                                    Send
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- User List Sidebar -->
+                    <div class="w-64 border-l border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hidden md:flex flex-col">
+                        <div class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                            <span class="font-bold text-xs uppercase tracking-widest text-gray-500">Online</span>
+                            <span id="chat-online-count" class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <div id="chat-user-list" class="flex-grow overflow-y-auto p-2 space-y-1 pretty-scrollbar">
+                            <!-- Users injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Settings
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Game Configuration</p>
+                </header>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+                    <!-- Appearance -->
+                    <div class="p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Appearance</h3>
+                        <div class="flex gap-4">
+                            <button id="btn-theme-light" onclick="Game.settings.setTheme('light')" class="flex-1 p-4 border border-gray-200 dark:border-gray-700 rounded-lg flex flex-col items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+                                <span class="text-2xl">☀️</span>
+                                <span class="font-bold text-sm uppercase tracking-wider">Light</span>
+                            </button>
+                            <button id="btn-theme-dark" onclick="Game.settings.setTheme('dark')" class="flex-1 p-4 border border-gray-200 dark:border-gray-700 rounded-lg flex flex-col items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+                                <span class="text-2xl">🌙</span>
+                                <span class="font-bold text-sm uppercase tracking-wider">Dark</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gameplay -->
+                    <div class="p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Gameplay</h3>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-400">Difficulty</label>
+                            <select id="settings-difficulty-select" onchange="Game.settings.changeDifficulty(this.value)" class="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-bold focus:outline-none focus:border-blue-500 transition-colors">
+                                <!-- Populated by JS -->
+                            </select>
+                            <div id="settings-difficulty-description"></div>
+                            <p class="text-xs text-gray-500 mt-2">Adjusting difficulty affects enemy strength and loot drop rates.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Page -->
+            <section id="admin-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Admin Control
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">User Management System</p>
+                </header>
+                
+                <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm rounded-xl overflow-hidden">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Active Users</h3>
+                        <button onclick="Game.admin.render()" class="text-xs font-bold uppercase tracking-widest text-blue-500 hover:text-blue-600">Refresh List</button>
+                    </div>
+                    <div id="admin-user-list" class="divide-y divide-gray-100 dark:divide-gray-800 max-h-[600px] overflow-y-auto pretty-scrollbar">
+                        <!-- Users injected by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Page -->
+            <section id="inventory-page" class="page-section hidden-page w-full max-w-7xl mx-auto">
+                <header class="w-full mb-12 flex flex-col items-center justify-center shrink-0">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white uppercase">
+                        Inventory
+                    </h1>
+                    <p class="text-gray-500 uppercase tracking-widest text-sm">Manage your equipment and items</p>
+                </header>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <!-- Equipment Section (Left Column) -->
+                    <div class="w-full lg:col-span-2">
+                        <h3 class="text-xl font-semibold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">Equipped</h3>
+                        <div id="equipment-slots" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <!-- Slots will be rendered here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Inventory Section (Right Column) -->
+                    <div class="w-full lg:col-span-3">
+                        <h3 class="text-xl font-semibold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">Backpack</h3>
+                        <div id="inventory-filter-controls" class="mb-2">
+                            <!-- Filters injected by JS -->
+                        </div>
+                        <div id="inventory-list" class="rounded-none border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 h-96 lg:h-[calc(100vh-22rem)] overflow-y-auto pretty-scrollbar">
+                            <p id="inventory-empty-msg" class="p-4 text-center text-gray-500 italic">Your backpack is empty.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Database Files -->
+    <script src="database/rarities.js"></script>
+    <script src="database/mechanics.js"></script>
+    <script src="database/difficulties.js"></script>
+    <script src="database/worlds.js"></script>
+    <script src="database/ranks.js"></script>
+    <script src="database/encounters.js"></script>
+    <script src="database/enemies.js"></script>
+    <script src="database/items.js"></script>
+    <script src="database/gacha_items.js"></script>
+    <script src="database/gacha.js"></script>
+    <script src="database/effects.js"></script>
+    <script src="database/materials.js"></script>
+    <script src="database/foods.js"></script>
+    <script src="database/quests.js"></script>
+    <!-- Systems -->
+    <script src="systems/shop.js"></script>
+    <script src="systems/admin.js"></script>
+    <!-- Server Connection -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <!-- API Layer -->
+    <script src="api.js"></script>
+    <!-- Main Game Logic -->
+    <script src="game.js"></script>
+
+    <!-- Gacha Result Modal -->
+    <div id="gacha-result-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/90 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-900 border-0 p-8 max-w-5xl w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300 rounded-2xl relative overflow-hidden" id="gacha-modal-content">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+            
+            <h2 class="text-4xl font-black text-center mb-2 text-gray-900 dark:text-white uppercase tracking-tighter">Summon Results</h2>
+            <p class="text-center text-gray-500 dark:text-gray-400 text-sm uppercase tracking-widest mb-8">New acquisitions added to inventory</p>
+            
+            <div id="gacha-result-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8 max-h-[60vh] overflow-y-auto pretty-scrollbar p-2">
+                <!-- Items injected here -->
+            </div>
+            <div class="text-center">
+                <button onclick="Game.gacha.closeResults()" class="px-10 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-lg rounded-full text-xs">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

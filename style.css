@@ -1,0 +1,2552 @@
+/* style.css - Clean Black and White UI */
+:root {
+    /* --- Light Mode Palette (Default) --- */
+    --bw-bg-white: #ffffff; /* Pure white for main backgrounds */
+    --bw-bg-light: #f8f8f8; /* Very light gray for subtle distinction */
+    --bw-bg-hover: #f0f0f0; /* Slightly darker light gray for hover states */
+    --bw-bg-surface: #ffffff; /* Used for sidebars, panels - often same as white */
+    --bw-bg-darker: #f0f2f5; /* Slightly darker than light, used for trade page background */
+
+    --bw-border-light: #eeeeee; /* Very light border */
+    --bw-border-subtle: #dddddd; /* Subtle border */
+    --bw-border-medium: #cccccc; /* Medium border for structure */
+    --bw-border-dark: #666666; /* Dark border for emphasis */
+
+    --bw-text-darkest: #0b090a; /* Very dark gray (almost black) for primary text */
+    --bw-text-emphasis: #0b090a; /* Often same as darkest for key titles */
+    --bw-text-dark: #333333; /* Dark gray for secondary text */
+    --bw-text-muted: #666666; /* Muted dark gray */
+
+    /* Accent Color (can be used for primary buttons, etc.) */
+    --bw-accent-primary: #007bff; /* A clean blue accent */
+    --bw-accent-primary-hover: #0056b3;
+    --bw-accent-primary-active: #004085;
+    --bw-accent-secondary: #6f42c1; /* A purple accent for other highlights */
+    --bw-accent-secondary-hover: #563399;
+    --bw-accent-secondary-active: #402673;
+    --bw-accent-text: #ffffff; /* White text on accent backgrounds */
+
+    /* Semantic Colors (Keep these visible on white/light backgrounds) */
+    --danger-primary: #dc3545; /* Red */
+    --danger-hover: #c82333;
+    --danger-border: #bd2130;
+
+    --warning-primary: #ffc107; /* Yellow */
+    --warning-hover: #e0a800;
+    --warning-border: #d39e00;
+
+    --success-primary: #28a745; /* Green */
+    --success-hover: #218838;
+    --success-border: #1e7e34;
+
+    /* Rarity Colors (Keep these as they are for differentiation) */
+    --rarity-common: var(--bw-text-dark);
+    --rarity-uncommon: #0069d9; /* Darker Blue */
+    --rarity-rare: #580ec2;    /* Darker Indigo */
+    --rarity-epic: #e0a800;    /* Darker Yellow/Gold */
+    --rarity-mythic: #e65100;   /* Darker Orange */
+    --rarity-legendary: #b22222; /* Darker Red (Firebrick) */
+    --rarity-celestial: #5a379d; /* Darker Purple */
+    --rarity-divine: #17a2b8;   /* Darker Teal/Cyan */
+    --rarity-transcendent: #c92a70; /* Darker Pink */
+    --rarity-primordial: #1e7e34; /* Darker Green */
+    --rarity-cosmic: #580ec2;   /* Darker Indigo (same as rare for consistency if desired) */
+    --rarity-infinite: #b22222;  /* Darker Red (same as legendary) */
+    --rarity-absolute: var(--bw-text-darkest); /* Use darkest text color */
+    --rarity-omega: #c51162;    /* Dark Pink/Magenta */
+    --rarity-alpha: #1b5e20;    /* Dark Green */
+    --rarity-genesis: #b8860b;   /* Dark GoldenRod */
+    --rarity-voidtouched: #5a379d; /* Darker Purple (same as celestial) */
+    --rarity-enemy: var(--danger-primary); /* Use danger color for enemies */
+    --rarity-subspatial: #0056b3; /* Darkest Blue */
+    --rarity-hyperdimensional: #00695c; /* Dark Teal */
+    --rarity-extradimensional: #1e7e34; /* Darker Green (same as primordial) */
+    --rarity-phasecontinuum: #4a0072; /* Deep Dark Purple */
+    --rarity-metaphysical: #0d47a1; /* Very Dark Blue */
+    --rarity-acausal: #5a379d; /* Darker Purple (same as celestial/voidtouched) */
+    --rarity-ontological: var(--bw-text-darkest); /* Very dark gray */
+
+
+    /* Glow colors (adjust for light mode - make them subtle) */
+    --rarity-rare-glow: rgba(102, 16, 242, 0.1);
+    --rarity-epic-glow: rgba(255, 193, 7, 0.2);
+    --rarity-mythic-glow: rgba(253, 126, 20, 0.2);
+    --rarity-legendary-glow: rgba(220, 53, 69, 0.2);
+    --rarity-celestial-glow: rgba(111, 66, 193, 0.2);
+    --rarity-divine-glow: rgba(32, 201, 151, 0.3);
+    --rarity-transcendent-glow: rgba(232, 62, 140, 0.3);
+    --rarity-primordial-glow: rgba(40, 167, 69, 0.3);
+    --rarity-cosmic-glow: rgba(102, 16, 242, 0.4);
+    --rarity-infinite-glow: rgba(220, 53, 69, 0.4);
+    --rarity-absolute-glow: rgba(11, 9, 10, 0.5);
+    --rarity-omega-glow: rgba(255, 107, 107, 0.4);
+    --rarity-alpha-glow: rgba(129, 199, 132, 0.4);
+    --rarity-genesis-glow: rgba(255, 215, 0, 0.5);
+    --rarity-voidtouched-glow: rgba(111, 66, 193, 0.5);
+    --rarity-subspatial-glow: rgba(0, 123, 255, 0.4);
+    --rarity-hyperdimensional-glow: rgba(0, 206, 209, 0.5);
+    --rarity-extradimensional-glow: rgba(40, 167, 69, 0.5);
+    --rarity-phasecontinuum-glow: rgba(102, 16, 242, 0.5);
+    --rarity-metaphysical-glow: rgba(23, 162, 184, 0.5);
+    --rarity-acausal-glow: rgba(111, 66, 193, 0.6);
+    --rarity-ontological-glow: rgba(11, 9, 10, 0.6);
+
+    /* Semi-transparent backgrounds for specific elements */
+    --bw-bg-header-transparent-light: rgba(255, 255, 255, 0.65);
+    --bw-bg-banner-transparent-light: rgba(240, 240, 240, 0.7); /* Based on #f0f0f0 */
+    --bw-bg-chat-header-transparent-light: rgba(248, 248, 248, 0.7); /* Based on #f8f8f8 */
+
+
+
+
+    /* Spacing, Sizing, Transitions remain mostly the same */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-3xl: 3rem;
+
+    --radius-sm: 0.3rem;  /* Slightly increased for a softer feel */
+    --radius-md: 0.5rem;  /* Noticeably rounder for cards/panels */
+    --radius-lg: 0.75rem; /* For larger containers or modals */
+
+    --transition-fast: none;
+    --transition-base: none;
+    --transition-slow: none;
+
+    /* New shadow variables for consistency */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-interactive: 0 6px 16px rgba(0, 0, 0, 0.08);
+    --shadow-modal: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Dark Mode Palette --- */
+html.dark {
+    --bw-bg-white: #1A1A1A; /* rich black */
+    --bw-bg-light: #2A2A2A;
+    --bw-bg-hover: #3A3A3A;
+    --bw-bg-surface: #1F1F1F;
+    --bw-bg-darker: #1A1A1A;
+
+    --bw-border-light: #4A4A4A;
+    --bw-border-subtle: #3A3A3A;
+    --bw-border-medium: #2A2A2A;
+    --bw-border-dark: #9A9A9A;
+
+    --bw-text-darkest: #F0F0F0; /* off-white */
+    --bw-text-emphasis: #FFFFFF;
+    --bw-text-dark: #C0C0C0;
+    --bw-text-muted: #9A9A9A;
+
+    /* Accent Colors */
+    --bw-accent-primary: #00FF85; /* neon green */
+    --bw-accent-primary-hover: #FF0099; /* vivid pink */
+    --bw-accent-primary-active: #00CC6A;
+    --bw-accent-secondary: #822659; /* deep ruby */
+    --bw-accent-secondary-hover: #9e2d6b;
+    --bw-accent-secondary-active: #681f47;
+    --bw-accent-text: #1A1A1A; /* Black text on accent backgrounds */
+
+    /* Semantic Colors */
+    --danger-primary: #f87171;
+    --danger-hover: #ef4444;
+    --danger-border: #dc2626;
+
+    --warning-primary: #facc15;
+    --warning-hover: #eab308;
+    --warning-border: #ca8a04;
+
+    --success-primary: #4ade80;
+    --success-hover: #22c55e;
+    --success-border: #16a34a;
+
+    /* Rarity Colors (adjusted for new dark theme) */
+    --rarity-common: var(--bw-text-dark);
+    --rarity-uncommon: #60a5fa; /* A lighter blue */
+    --rarity-rare: #c4b5fd;    /* A soft violet */
+    --rarity-epic: #fde047;    /* A vibrant yellow */
+    --rarity-mythic: #fbbf24;
+    --rarity-legendary: #f87171;
+    --rarity-celestial: #a78bfa;
+    --rarity-divine: #5eead4;
+    --rarity-transcendent: #f472b6;
+    --rarity-primordial: #86efac;
+    --rarity-cosmic: #c4b5fd;
+    --rarity-infinite: #f87171;
+    --rarity-absolute: var(--bw-text-darkest);
+    --rarity-omega: #f472b6;
+    --rarity-alpha: #86efac;
+    --rarity-genesis: #fcd34d;
+    --rarity-voidtouched: #a78bfa;
+    --rarity-subspatial: #60a5fa;
+    --rarity-hyperdimensional: #2dd4bf;
+    --rarity-extradimensional: #86efac;
+    --rarity-phasecontinuum: #a78bfa;
+    --rarity-metaphysical: #60a5fa;
+    --rarity-acausal: #a78bfa;
+    --rarity-ontological: var(--bw-text-darkest);
+
+    /* Glow colors */
+    --rarity-rare-glow: rgba(196, 181, 253, 0.3);
+    --rarity-epic-glow: rgba(253, 224, 71, 0.4);
+    --rarity-mythic-glow: rgba(251, 191, 36, 0.4);
+    --rarity-legendary-glow: rgba(248, 113, 113, 0.4);
+    --rarity-celestial-glow: rgba(167, 139, 250, 0.4);
+    --rarity-divine-glow: rgba(94, 234, 212, 0.5);
+    --rarity-transcendent-glow: rgba(244, 114, 182, 0.5);
+    --rarity-primordial-glow: rgba(134, 239, 172, 0.5);
+    --rarity-cosmic-glow: rgba(196, 181, 253, 0.55);
+    --rarity-infinite-glow: rgba(248, 113, 113, 0.55);
+    --rarity-absolute-glow: rgba(240, 240, 240, 0.6);
+    --rarity-omega-glow: rgba(244, 114, 182, 0.55);
+    --rarity-alpha-glow: rgba(134, 239, 172, 0.55);
+    --rarity-genesis-glow: rgba(252, 211, 77, 0.65);
+    --rarity-voidtouched-glow: rgba(167, 139, 250, 0.65);
+    --rarity-subspatial-glow: rgba(96, 165, 250, 0.55);
+    --rarity-hyperdimensional-glow: rgba(45, 212, 191, 0.65);
+    --rarity-extradimensional-glow: rgba(134, 239, 172, 0.65);
+    --rarity-phasecontinuum-glow: rgba(167, 139, 250, 0.65);
+    --rarity-metaphysical-glow: rgba(96, 165, 250, 0.65);
+    --rarity-acausal-glow: rgba(167, 139, 250, 0.75);
+    --rarity-ontological-glow: rgba(240, 240, 240, 0.75);
+
+    /* Shadows for dark mode */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-interactive: 0 6px 16px rgba(0, 0, 0, 0.5);
+    --shadow-modal: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+html.dark {
+    --bw-bg-header-transparent-dark: rgba(28, 44, 63, 0.75); /* Based on new --bw-bg-light #1c2c3f */
+    --bw-bg-banner-transparent-dark: rgba(28, 44, 63, 0.8);  /* Based on new --bw-bg-light #1c2c3f */
+    --bw-bg-chat-header-transparent-dark: rgba(13, 27, 42, 0.8); /* Based on new --bw-bg-surface #0d1b2a */
+}
+
+body {
+    /* Use pure white background and darkest text color */
+    /* Most properties like background, color, font-family, line-height, min-height, display
+       are handled by Tailwind classes on the <body> tag in home.html.
+       Keep essential resets or global settings here. */
+    font-family: 'Inter', sans-serif; /* Fallback or base font */
+    line-height: 1.6; /* Base line-height */
+    box-sizing: border-box; /* Crucial for layout consistency */
+    touch-action: manipulation;
+    background-color: var(--bw-bg-darker); /* Explicitly set body background */
+    color: var(--bw-text-darkest); /* Add default text color for light mode */
+}
+html.dark body {
+    color: var(--bw-text-darkest); /* Add default text color for dark mode */
+}
+
+/* --- Header & Navigation --- */
+#sidebar { background-color: var(--bw-bg-surface); } 
+html.dark #sidebar { background-color: var(--bw-bg-surface); }
+.profile-section { background-color: var(--bw-bg-surface); } 
+
+/* --- Game Container --- */
+.game-container {
+    width: 100%;
+    /* Use very light background and subtle border */
+    background-color: var(--bw-bg-white); /* Cleaner: main container is white */
+    border-radius: var(--radius-lg); /* Softer, larger radius */
+    box-shadow: var(--shadow-interactive); /* More defined shadow for the main container */
+    overflow: hidden;
+    display: flex;
+    
+    /* border: 1px solid var(--bw-border-light); */ /* Lighter border - REMOVED */
+    position: relative;
+    color: var(--bw-text-darkest); /* Add text color to game container */
+}
+
+.hidden-page {
+    display: none !important;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+}
+
+.page-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+}
+/* --- Community Board Page --- */
+#community-board-page.page-section,
+.community-board-page.page-section {
+    min-height: 100vh;
+    width: 100%;
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    font-size: 1.05rem; /* Slightly larger for readability */
+    background-color: var(--bw-bg-white);
+    color: var(--bw-text-darkest);
+}
+html.dark #community-board-page.page-section,
+html.dark .community-board-page.page-section {
+    background-color: var(--bw-bg-surface);
+    color: var(--bw-text-darkest);
+}
+#glassmorphism-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.18); /* Light glass effect, adjust for dark mode if needed */
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    /* Optional: border and subtle shadow for extra glass look */
+    border-radius: 0;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+    transition: background 0.3s;
+}
+html.dark #glassmorphism-overlay {
+    background: rgba(18, 24, 38, 0.22); /* Darker glass for dark mode */
+}
+@keyframes heal-flash {
+    0% { box-shadow: 0 0 8px 2px #4ade80; background-color: #4ade80; }
+    100% { box-shadow: none; background-color: #22c55e; }
+}
+@keyframes damage-flash {
+    0% { box-shadow: 0 0 8px 2px #f87171; background-color: #f87171; }
+    100% { box-shadow: none; background-color: #22c55e; }
+}
+.animate-heal-flash {
+    animation: heal-flash 0.4s;
+}
+.animate-damage-flash {
+    animation: damage-flash 0.4s;
+}
+#loading-shader-canvas {
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+    background: #000 !important;
+    pointer-events: none;
+}
+.page-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+html.dark .game-container {
+    background-color: var(--bw-bg-surface); /* Use dark surface */
+    box-shadow: var(--shadow-interactive);
+    color: var(--bw-text-darkest); /* Apply text color in dark mode */
+}
+
+
+/* --- Headings --- */
+h1, h2, h3 {
+    font-weight: 700;
+    text-align: center;
+    /* Use darkest text color for headings */
+    color: var(--bw-text-darkest); /* Default to light mode */
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--bw-accent-primary); /* Use clean blue accent for H1 */
+    text-shadow: 0 0 10px rgba(0, 123, 255, 0.08); /* Subtle glow with new accent */
+    letter-spacing: 0.02em; /* Slightly tighter for a modern feel */
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xl); /* More space after H1 */
+}
+html.dark h1 {
+    color: var(--bw-accent-primary); /* Use dark mode accent */
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.15); /* Adjusted glow for dark */
+}
+
+h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid var(--bw-border-light); /* Lighter border for separation */
+    padding-bottom: var(--spacing-sm);
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-xl); /* More space */
+}
+html.dark h2 {
+    border-bottom-color: var(--bw-border-light); /* Use dark mode light border */
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--bw-text-dark); /* Use dark text color for H3 */
+    margin-bottom: var(--spacing-lg); /* More space */
+}
+html.dark h3 {
+    color: var(--bw-text-dark); /* Use dark mode dark text */
+}
+
+
+/* --- Buttons --- */
+.game-button {
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+    border-radius: var(--radius-md); /* Softer, more modern radius */
+    font-weight: 700; /* Bolder text */
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out; /* Smooth transition for all properties */
+    background-color: var(--bw-bg-light);
+    color: var(--bw-text-dark);
+    border: 1px solid var(--bw-border-subtle);
+    box-shadow: var(--shadow-soft);
+    text-transform: uppercase; /* Uppercase for a more "gamey" feel */
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+html.dark .game-button {
+    background-color: var(--bw-bg-light);
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-subtle);
+    box-shadow: var(--shadow-soft);
+}
+
+.game-button:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover);
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-dark);
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: var(--shadow-interactive);
+}
+
+html.dark .game-button:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover);
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-dark);
+    box-shadow: var(--shadow-interactive);
+}
+
+.game-button:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+html.dark .game-button:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+
+.game-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    background-color: var(--bw-bg-light);
+    color: var(--bw-text-muted);
+    border-color: var(--bw-border-subtle);
+}
+
+html.dark .game-button:disabled {
+    opacity: 0.5;
+    background-color: var(--bw-bg-surface);
+    color: var(--bw-text-muted);
+    border-color: var(--bw-border-medium);
+}
+
+/* --- NEW: Loading State for Buttons --- */
+.game-button.is-loading {
+    cursor: wait;
+    pointer-events: none;
+}
+
+.game-button.is-loading::after {
+    content: ' ...';
+    display: inline-block;
+    animation: loading-dots 1.5s infinite steps(3, end);
+    margin-left: 0.5em;
+}
+
+@keyframes loading-dots {
+    0%, 20% { content: ' .'; }
+    40% { content: ' ..'; }
+    60%, 100% { content: ' ...'; }
+}
+
+
+.button-primary {
+    background-color: var(--bw-accent-primary); /* Use accent for primary */
+    color: var(--bw-accent-text); /* White text on accent */
+    border-color: var(--bw-accent-primary);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Accent shadow */
+}
+html.dark .button-primary {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text); /* Ensure contrast */
+    border-color: var(--bw-accent-primary);
+    box-shadow: 0 2px 5px rgba(96, 165, 250, 0.3); /* Adjusted shadow for dark */
+}
+
+.button-primary:hover:not(:disabled) {
+    background-color: var(--bw-accent-primary-hover);
+    border-color: var(--bw-accent-primary-hover);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Enhanced accent shadow */
+}
+html.dark .button-primary:hover:not(:disabled) {
+    background-color: var(--bw-accent-primary-hover);
+    border-color: var(--bw-accent-primary-hover);
+    box-shadow: 0 4px 10px rgba(96, 165, 250, 0.4);
+}
+
+.button-secondary {
+    background-color: var(--bw-bg-white); /* White background */
+    color: var(--bw-text-dark); /* Dark text */
+    border-color: var(--bw-border-medium); /* Medium border */
+}
+html.dark .button-secondary {
+    background-color: var(--bw-bg-light); /* Darker base for secondary */
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-subtle);
+}
+
+.button-secondary:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover); /* Light hover background */
+    border-color: var(--bw-border-subtle); /* Subtle border on hover */
+    color: var(--bw-text-darkest); /* Darkest text on hover */
+}
+html.dark .button-secondary:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover);
+    border-color: var(--bw-border-dark);
+    color: var(--bw-text-darkest);
+}
+
+/* Specific Battle Buttons - Using light mode semantic colors */
+.button-attack { background-color: var(--danger-primary); color: var(--bw-accent-text); border-color: var(--danger-border); }
+.button-attack:hover:not(:disabled) { background-color: var(--danger-hover); }
+.button-item { background-color: var(--success-primary); color: var(--bw-accent-text); border-color: var(--success-border); }
+.button-item:hover:not(:disabled) { background-color: var(--success-hover); }
+.button-flee { background-color: var(--warning-primary); color: var(--bw-accent-text); border-color: var(--warning-border); } /* Use accent text, typically white */
+.button-flee:hover:not(:disabled) { background-color: var(--warning-hover); } /* Text color will be inherited */
+/* Semantic buttons in dark mode will use the dark mode semantic variables */
+html.dark .button-attack { background-color: var(--danger-primary); color: var(--bw-text-darkest); border-color: var(--danger-border); }
+html.dark .button-attack:hover:not(:disabled) { background-color: var(--danger-hover); }
+html.dark .button-item { background-color: var(--success-primary); color: var(--bw-text-darkest); border-color: var(--success-border); }
+html.dark .button-item:hover:not(:disabled) { background-color: var(--success-hover); }
+html.dark .button-flee { background-color: var(--warning-primary); color: var(--bw-text-darkest); border-color: var(--warning-border); } /* Ensure text is readable */
+html.dark .button-flee:hover:not(:disabled) { background-color: var(--warning-hover); }
+
+
+/* --- Stat Blocks & Displays --- */
+.stat-block {
+    margin-bottom: var(--spacing-xl);
+}
+
+.pretty-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+.pretty-scrollbar::-webkit-scrollbar-track {
+    background: var(--bw-bg-light);
+    border-radius: 10px;
+}
+.pretty-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--bw-border-subtle);
+    border-radius: 10px;
+}
+.pretty-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 102, 102, 0.7);
+}
+html.dark .pretty-scrollbar::-webkit-scrollbar-track { background: var(--bw-bg-surface); }
+html.dark .pretty-scrollbar::-webkit-scrollbar-thumb { background: var(--bw-border-light); }
+html.dark .pretty-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--bw-border-subtle); }
+
+/* For Firefox */
+.pretty-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bw-border-subtle) var(--bw-bg-light);
+}
+html.dark .pretty-scrollbar {
+    scrollbar-color: var(--bw-border-light) var(--bw-bg-surface);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* --- Exploration Page Specific Styles --- */
+#explore-page .stat-block {
+    /* Handled by Tailwind classes in HTML now for cleaner control */
+}
+
+#explore-page .stat-block .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px dashed var(--bw-border-light);
+    font-size: 0.95rem;
+}
+html.dark #explore-page .stat-block {
+    background-color: var(--bw-bg-surface);
+    box-shadow: var(--shadow-soft);
+    color: var(--bw-text-dark);
+}
+html.dark #explore-page .stat-block .stat-item { border-bottom-color: var(--bw-border-light); }
+
+#explore-page .stat-block .stat-item:last-child {
+    border-bottom: none;
+}
+#explore-page .stat-block .stat-item strong {
+    color: var(--bw-text-dark);
+    font-weight: 600;
+}
+html.dark #explore-page .stat-block .stat-item strong {
+    color: var(--bw-text-dark);
+}
+
+#explore-page .stat-block .stat-item span {
+    color: var(--bw-text-darkest);
+    font-weight: 500;
+}
+html.dark #explore-page .stat-block .stat-item span {
+    color: var(--bw-text-darkest);
+}
+
+/* NEW: Exploration Page - PC Profile Header (complementing Tailwind classes) */
+/* Styles for the profile/cover/displayname section at the top of stats in PC view. */
+/* Assumes Tailwind classes handle layout, sizing, and responsive visibility (sm:flex). */
+/* These rules ensure that CSS variables are correctly applied for theming. */
+
+#explore-pc-profile-header {
+    background-color: var(--bw-bg-surface);
+    /* border-color is typically set by a Tailwind utility like 'border-bw-border-subtle' if configured.
+       This rule ensures it if the class isn't specific enough or for ID-based styling priority. */
+    border-color: var(--bw-border-subtle);
+    /* Tailwind 'shadow-md' is used in HTML. If a variable-based shadow is preferred:
+       box-shadow: var(--shadow-soft); */
+}
+
+#explore-header-profile-pic {
+    border-color: var(--bw-border-subtle); /* Changed from accent to subtle border for a more neutral look */
+}
+
+#explore-header-display-name {
+    color: var(--bw-text-emphasis);
+}
+
+#explore-header-cover-photo {
+    border-color: var(--bw-border-light); /* Complements Tailwind's 'border' for width/style. */
+}
+/* NEW: Home Page - PC Profile Header */
+#home-header-profile-pic {
+    border-color: var(--bw-border-subtle); /* Ensures consistent border color, complements Tailwind 'border-2' */
+    /* For centering within its parent 'cover' element: */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Note: The parent 'cover' element for this profile picture should have 'position: relative;' */
+}
+
+.stat-item strong {
+     color: var(--bw-text-muted);
+     font-size: 0.8rem;
+     text-transform: uppercase;
+     letter-spacing: 0.05em;
+}
+html.dark .stat-item strong {
+     color: var(--bw-text-muted);
+}
+
+
+/* Specific styling for XP progress bar container */
+.stat-item .w-full.bg-gray-600 {
+    margin-top: var(--spacing-xs);
+    background-color: var(--bw-border-light);
+    height: 0.5rem;
+}
+html.dark .stat-item .w-full.bg-gray-600 {
+    background-color: var(--bw-border-subtle); /* Darker track for progress bar */
+}
+
+#xp-progress-bar {
+    background-color: var(--bw-accent-primary);
+    height: 0.5rem;
+}
+html.dark #xp-progress-bar {
+    background-color: var(--bw-accent-primary);
+}
+
+
+/* --- Dialog & Log Boxes --- */
+.dialog-box, .battle-log {
+    /* Handled by Tailwind classes in HTML */
+    flex-grow: 1;
+    position: relative;
+}
+html.dark .dialog-box, html.dark .battle-log {
+    background-color: var(--bw-bg-surface);
+    box-shadow: var(--shadow-soft);
+    color: var(--bw-text-dark);
+    border: 1px solid var(--bw-border-medium); /* Add subtle border in dark mode */
+}
+
+.dialog-box {
+     min-height: 150px;
+     max-height: 250px; /* Slightly taller */
+}
+
+.battle-log {
+     min-height: 200px;
+     max-height: 200px;
+}
+
+/* --- Rarity Colors --- */
+/* Keep these as they are for differentiation */
+.rarity-Common { color: var(--rarity-common) !important; font-weight: 400; }
+.rarity-Uncommon { color: var(--rarity-uncommon) !important; font-weight: 500; }
+.rarity-Rare { color: var(--rarity-rare) !important; font-weight: 600; text-shadow: 0 0 3px var(--rarity-rare-glow); }
+.rarity-Epic { color: var(--rarity-epic) !important; font-weight: 600; text-shadow: 0 0 4px var(--rarity-epic-glow); } /* Added !important for consistency */
+/* Rarity colors in dark mode will use the dark mode variable definitions.
+   Text shadows might need adjustment if they are too dark or too light.
+   For gradient texts, the base colors in the gradient might need to change.
+*/
+.rarity-Mythic {
+    background: linear-gradient(45deg, var(--rarity-mythic), #c44100); /* Darker Orange to Deeper Orange */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px var(--rarity-mythic-glow); /* Subtle dark shadow */
+}
+html.dark .rarity-Mythic {
+    background: linear-gradient(45deg, var(--rarity-mythic), #f59e0b); /* Brighter orange for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-mythic-glow); /* Glow should be brighter */
+}
+.rarity-Legendary {
+    background: linear-gradient(45deg, var(--rarity-legendary), #871a1a); /* Dark Red to Deeper Red */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px var(--rarity-legendary-glow);
+}
+html.dark .rarity-Legendary {
+    background: linear-gradient(45deg, var(--rarity-legendary), #ef4444); /* Brighter red for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-legendary-glow);
+}
+.rarity-Celestial {
+    background: linear-gradient(45deg, var(--rarity-celestial), #4527a0); /* Darker Purple to Deeper Purple */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px var(--rarity-celestial-glow);
+}
+html.dark .rarity-Celestial {
+    background: linear-gradient(45deg, var(--rarity-celestial), #8b5cf6); /* Brighter purple for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-celestial-glow);
+}
+.rarity-Divine {
+    background: linear-gradient(45deg, var(--rarity-divine), #107a8b); /* Darker Teal/Cyan to Deeper */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px var(--rarity-divine-glow);
+}
+html.dark .rarity-Divine {
+    background: linear-gradient(45deg, var(--rarity-divine), #2dd4bf); /* Brighter teal for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-divine-glow);
+}
+.rarity-Transcendent {
+    background: linear-gradient(45deg, var(--rarity-transcendent), #a02058); /* Darker Pink to Deeper Pink */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.15); /* Generic dark shadow */
+}
+html.dark .rarity-Transcendent {
+    background: linear-gradient(45deg, var(--rarity-transcendent), #ec4899); /* Brighter pink for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.3); /* Darker shadow for contrast */
+}
+.rarity-Primordial {
+    background: linear-gradient(45deg, var(--rarity-primordial), #145a32); /* Darker Green to Deeper Green */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.15);
+}
+html.dark .rarity-Primordial {
+    background: linear-gradient(45deg, var(--rarity-primordial), #4ade80); /* Brighter green for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.3);
+}
+.rarity-Cosmic {
+    background: linear-gradient(45deg, var(--rarity-cosmic), #4d0bba); /* Darker Indigo to Deeper Indigo */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.2);
+}
+html.dark .rarity-Cosmic {
+    background: linear-gradient(45deg, var(--rarity-cosmic), #a78bfa); /* Brighter indigo for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.35);
+}
+.rarity-Infinite {
+    background: linear-gradient(45deg, var(--rarity-infinite), #871a1a); /* Darker Red to Deeper Red */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.2);
+}
+html.dark .rarity-Infinite {
+    background: linear-gradient(45deg, var(--rarity-infinite), #ef4444); /* Brighter red for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.35);
+}
+.rarity-Absolute {
+    color: var(--rarity-absolute) !important; /* Solid dark color */
+    font-weight: 900;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.25); /* Slightly stronger dark shadow */
+}
+html.dark .rarity-Absolute {
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.5); /* Even stronger shadow for dark */
+}
+.rarity-Omega {
+    background: linear-gradient(45deg, var(--rarity-omega), #a00d4e); /* Dark Pink to Deeper Pink */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.25);
+}
+html.dark .rarity-Omega {
+    background: linear-gradient(45deg, var(--rarity-omega), #f472b6); /* Brighter pink for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.4);
+}
+.rarity-Alpha {
+    background: linear-gradient(45deg, var(--rarity-alpha), #124616); /* Dark Green to Deeper Green */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.25);
+}
+html.dark .rarity-Alpha {
+    background: linear-gradient(45deg, var(--rarity-alpha), #86efac); /* Brighter green for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0, 0.4);
+}
+.rarity-Genesis {
+    background: linear-gradient(60deg, var(--rarity-genesis), #a77700, #b8860b, #a77700, var(--rarity-genesis)); /* Dark Gold variations */
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3), 0 0 3px var(--rarity-genesis-glow); /* Dark shadow + subtle color glow */
+    animation: genesisPulse 2s infinite ease-in-out;
+}
+
+html.dark .rarity-Genesis {
+    background: linear-gradient(60deg, var(--rarity-genesis), #fcd34d, #fde047, #fcd34d, var(--rarity-genesis)); /* Brighter gold for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4), 0 0 3px var(--rarity-genesis-glow);
+}
+@keyframes genesisPulse { 0%, 100% { text-shadow: 1px 1px 2px rgba(0,0,0,0.3), 0 0 3px var(--rarity-genesis-glow); } 50% { text-shadow: 1px 1px 3px rgba(0,0,0,0.35), 0 0 5px var(--rarity-genesis-glow); } }
+
+.rarity-Voidtouched {
+    background: linear-gradient(135deg, var(--rarity-voidtouched), #4527a0, #311b92); /* Darker Purple to Deeper Purple */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    animation: voidPulse 1.5s infinite ease-in-out alternate;
+}
+html.dark .rarity-Voidtouched {
+    background: linear-gradient(135deg, var(--rarity-voidtouched), #8b5cf6, #7c3aed); /* Brighter purple for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.45);
+}
+.rarity-Shadow {
+    background: linear-gradient(135deg, #8a2be2, #9400d3, #4b0082);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.25), 0 0 2px var(--rarity-voidtouched-glow); /* Dark shadow + color glow */
+    animation: shadowFlicker 2.5s infinite ease-in-out alternate;
+}
+html.dark .rarity-Shadow {
+    background: linear-gradient(135deg, #c084fc, #a855f7, #9333ea); /* Brighter purples for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.4), 0 0 2px var(--rarity-voidtouched-glow);
+}
+@keyframes shadowFlicker { 0%, 100% { filter: brightness(0.9); } 50% { filter: brightness(1.1); } }
+.rarity-Abyssal {
+    color: var(--bw-text-darkest);
+    background: linear-gradient(135deg, var(--bw-text-darkest), #2c3e50, #34495e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    animation: abyssalShift 3s infinite linear;
+}
+html.dark .rarity-Abyssal {
+    background: linear-gradient(135deg, var(--bw-text-darkest), #475569, #64748b); /* Lighter grays for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+@keyframes abyssalShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.rarity-Nightmare {
+    background: linear-gradient(135deg, #a52a2a, #c0392b, #8b0000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    animation: nightmarePulse 1.3s infinite ease-in-out;
+}
+html.dark .rarity-Nightmare {
+    background: linear-gradient(135deg, #f87171, #ef4444, #dc2626); /* Brighter reds for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+@keyframes voidPulse { 0%, 100% { filter: brightness(0.9) saturate(0.9); } 50% { filter: brightness(1.1) saturate(1.1); text-shadow: 1px 1px 2px rgba(0,0,0,0.35), 0 0 3px var(--rarity-voidtouched-glow); } }
+
+.rarity-Subspatial {
+    background: linear-gradient(45deg, var(--rarity-subspatial), #004085); /* Darkest Blue to Deeper Blue */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px var(--rarity-subspatial-glow);
+    animation: subspatialWarp 4s infinite ease-in-out;
+}
+html.dark .rarity-Subspatial {
+    background: linear-gradient(45deg, var(--rarity-subspatial), #3b82f6); /* Brighter blue for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-subspatial-glow);
+}
+@keyframes subspatialWarp { 0%, 100% { filter: hue-rotate(0deg) brightness(1); } 50% { filter: hue-rotate(-15deg) brightness(1.1); } }
+
+.rarity-Hyperdimensional {
+    background: linear-gradient(60deg, var(--rarity-hyperdimensional), #004d40); /* Dark Teal to Deeper Teal */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px var(--rarity-hyperdimensional-glow);
+    animation: hyperPulse 1.8s infinite ease-in-out alternate;
+}
+html.dark .rarity-Hyperdimensional {
+    background: linear-gradient(60deg, var(--rarity-hyperdimensional), #14b8a6); /* Brighter teal for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-hyperdimensional-glow);
+}
+
+@keyframes hyperPulse { 0% { filter: brightness(0.9) saturate(0.9); } 100% { filter: brightness(1.1) saturate(1.1); text-shadow: 1px 1px 2px var(--rarity-hyperdimensional-glow), 0 0 3px rgba(0,0,0,0.1); } }
+
+.rarity-Extradimensional {
+    background: linear-gradient(75deg, var(--rarity-extradimensional), #145a32); /* Darker Green to Deeper Green */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 1px var(--rarity-extradimensional-glow);
+    animation: extraPulse 1.2s infinite linear;
+}
+html.dark .rarity-Extradimensional {
+    background: linear-gradient(75deg, var(--rarity-extradimensional), #4ade80); /* Brighter green for dark */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 1px var(--rarity-extradimensional-glow);
+}
+
+@keyframes extraPulse { 0%, 100% { filter: brightness(1); text-shadow: 1px 1px 1px var(--rarity-extradimensional-glow); } 50% { filter: brightness(1.1); text-shadow: 1px 1px 2px var(--rarity-extradimensional-glow), 0 0 2px rgba(0,0,0,0.1); } }
+
+.rarity-Enemy { color: var(--rarity-enemy); font-weight: 700; }
+
+.rarity-PhaseContinuum {
+    background: linear-gradient(110deg, var(--rarity-phasecontinuum), #311b92, #4a0072, #311b92, var(--rarity-phasecontinuum)); /* Deep Dark Purple variations */
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px var(--rarity-phasecontinuum-glow);
+    animation: phaseShift 5s infinite linear alternate;
+}
+html.dark .rarity-PhaseContinuum {
+    background: linear-gradient(110deg, var(--rarity-phasecontinuum), #7c3aed, #9333ea, #7c3aed, var(--rarity-phasecontinuum)); /* Brighter purples */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px var(--rarity-phasecontinuum-glow);
+}
+
+@keyframes phaseShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+.rarity-Metaphysical {
+    background: linear-gradient(100deg, var(--rarity-metaphysical), #0a367c, #0d47a1, #0a367c, var(--rarity-metaphysical)); /* Very Dark Blue variations */
+    background-size: 400% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px var(--rarity-metaphysical-glow);
+    animation: metaphysicalFlow 6s infinite linear alternate;
+}
+html.dark .rarity-Metaphysical {
+    background: linear-gradient(100deg, var(--rarity-metaphysical), #2563eb, #3b82f6, #2563eb, var(--rarity-metaphysical)); /* Brighter blues */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px var(--rarity-metaphysical-glow);
+}
+@keyframes metaphysicalFlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+.rarity-Acausal {
+    background: linear-gradient(120deg, var(--rarity-acausal), #4527a0, #311b92, #4527a0, var(--rarity-acausal)); /* Darker Purple variations */
+    background-size: 350% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px var(--rarity-acausal-glow);
+    animation: acausalFlicker 1.8s infinite steps(3, jump-none) alternate;
+}
+html.dark .rarity-Acausal {
+    background: linear-gradient(120deg, var(--rarity-acausal), #8b5cf6, #7c3aed, #8b5cf6, var(--rarity-acausal)); /* Brighter purples */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px var(--rarity-acausal-glow);
+}
+@keyframes acausalFlicker { 0%, 100% { filter: brightness(0.8); background-position: 10% 50%; } 33% { filter: brightness(1.2); background-position: 50% 50%; } 66% { filter: brightness(1.0); background-position: 90% 50%; } }
+
+.rarity-Ontological {
+    color: var(--rarity-ontological) !important; /* Solid darkest text */
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px var(--rarity-ontological-glow);
+    animation: ontologicalPulse 2.5s infinite ease-in-out;
+}
+html.dark .rarity-Ontological {
+    /* Solid color, should use dark mode variable */
+    text-shadow: 1px 1px 2px var(--rarity-ontological-glow); /* Glow should be brighter */
+}
+
+@keyframes ontologicalPulse { 0%, 100% { filter: brightness(0.95); text-shadow: 0 0 35px var(--rarity-ontological-glow), 0 0 50px rgba(11, 9, 10, 0.8); } 50% { filter: brightness(1.05); text-shadow: 0 0 40px var(--rarity-ontological-glow), 0 0 60px rgba(11, 9, 10, 0.9); } }
+
+/* --- Mega Boss Name Effects --- */
+/* Adjust mega boss text effects for light mode visibility */
+
+.mega-boss-name {
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  /* Fiery Effect */
+  html.dark .text-effect-fire {
+    color: #f87171; /* red-400 */
+    text-shadow:
+      0 0 4px #fecaca, /* red-200 */
+      0 0 7px #fbbf24, /* amber-400 */
+      0 0 10px #f97316, /* orange-500 */
+      0 0 15px #ef4444; /* red-500 */
+  }
+  .text-effect-fire {
+    color: var(--danger-primary); /* Use variable */
+    text-shadow:
+      0 0 4px var(--bw-bg-white), /* Use variable */
+      0 0 7px var(--warning-primary),
+      0 0 10px #fd7e14, /* Consider a variable for orange if used elsewhere */
+      0 0 15px var(--danger-primary);
+  }
+
+  /* Icy/Crystal Effect */
+  html.dark .text-effect-ice {
+    color: #60a5fa; /* blue-400 */
+    text-shadow:
+      0 0 5px #dbeafe,   /* blue-100 */
+      0 0 10px #93c5fd,  /* blue-300 */
+      0 0 15px #3b82f6; /* blue-500 */
+  }
+  .text-effect-ice {
+    color: #007bff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 5px var(--bw-bg-white), /* Use variable */
+      0 0 10px #aed6f1, /* Light blue, consider variable if common */
+      0 0 15px #5dade2; /* Medium blue, consider variable */
+  }
+
+  /* Void/Shadow Effect */
+  html.dark .text-effect-void {
+    color: #a78bfa; /* violet-400 */
+    text-shadow:
+      0 0 5px var(--bw-bg-light), /* slate-700 */
+      0 0 8px var(--bw-bg-surface); /* slate-800 */
+  }
+  .text-effect-void {
+    color: var(--bw-accent-secondary); /* Use variable */
+    text-shadow:
+      0 0 5px #343a40,
+      0 0 8px #0b090a;
+  }
+
+  /* Cosmic/Starlight Effect */
+  html.dark .text-effect-cosmic {
+    background: linear-gradient(45deg, #60a5fa, #a78bfa, #f472b6, #4ade80); /* Dark mode friendly colors */
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 3px rgba(0,0,0, 0.5); /* Darker shadow for contrast */
+  }
+  .text-effect-cosmic {
+    background: linear-gradient(45deg, #007bff, #6610f2, #e83e8c, #28a745);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Genesis/Holy Effect */
+  html.dark .text-effect-genesis {
+    color: #facc15; /* yellow-400 */
+    text-shadow:
+      0 0 8px #fef9c3, /* yellow-100 */
+      0 0 12px #fde68a, /* yellow-200 */
+      0 0 15px #fcd34d; /* yellow-300 */
+  }
+  .text-effect-genesis {
+    color: var(--warning-primary); /* Use variable */
+    text-shadow:
+      0 0 8px var(--bw-bg-white), /* Use variable */
+      0 0 12px #ffecb3, /* Light yellow, consider variable */
+      0 0 15px var(--warning-primary);
+  }
+
+  /* Nightmare Effect */
+  html.dark .text-effect-nightmare {
+      color: var(--bw-text-darkest); /* Use dark mode darkest text */
+      text-shadow:
+          0 0 5px #f87171, /* red-400 */
+          0 0 8px #a78bfa, /* violet-400 */
+          0 0 10px var(--bw-text-darkest); /* Use dark mode darkest text */
+  }
+  .text-effect-nightmare {
+      color: var(--bw-text-darkest);
+      text-shadow:
+          0 0 5px #dc3545,
+          0 0 8px #6f42c1,
+          0 0 10px var(--bw-text-darkest);
+  }
+
+  /* Dimensional/Rift Effect */
+  html.dark .text-effect-dimensional {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa, #facc15, #60a5fa); /* Dark mode friendly colors */
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-clip: text;
+      color: transparent;
+  }
+  .text-effect-dimensional {
+      background: linear-gradient(90deg, #007bff, #6610f2, #ffc107, #007bff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-clip: text;
+      color: transparent;
+  }
+
+  /* --- NEW: Styles for Animated Letters --- */
+  .effect-style .letter {
+    display: inline-block;
+    line-height: 1em;
+    opacity: 0;
+  }
+
+
+/* --- Inventory --- */
+.inventory-item {
+    background-color: var(--bw-bg-white); /* Use variable */
+    padding: var(--spacing-lg); /* More padding for a spacious feel */
+    border-radius: var(--radius-md); /* Consistent with other cards */
+    border: 1px solid var(--bw-border-light); /* Very subtle border, almost invisible on white */
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-lg); /* More gap */
+    color: var(--bw-text-darkest); /* Ensure primary text is darkest */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); /* Even more subtle shadow */
+}
+
+/* Item info part (name, stats, value) */
+.inventory-item > .flex-grow { /* Targets the first child div that grows */
+    min-width: 0; /* Allow text to wrap properly and not push buttons out */
+}
+
+html.dark .inventory-item {
+    background-color: var(--bw-bg-surface);
+    border-color: var(--bw-border-medium);
+    color: var(--bw-text-darkest);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.inventory-item:hover {
+     /* Keep background white on hover, enhance border/shadow for feedback */
+     border-color: var(--bw-border-subtle); /* Make border slightly more visible on hover */
+     box-shadow: var(--shadow-interactive); /* Use consistent interactive shadow */
+     transform: translateY(-2px); /* Add a slight lift */
+}
+html.dark .inventory-item:hover {
+     border-color: var(--bw-border-dark);
+}
+
+/* Inventory Item Action Buttons container */
+.inventory-item .flex.gap-2 {
+    flex-shrink: 0;
+}
+
+/* Inventory Item Action Buttons */
+.inventory-item button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: transparent;
+    color: var(--bw-text-muted);
+    border: 1px solid var(--bw-border-subtle);
+    border-radius: var(--radius-sm);
+    min-width: 65px;
+    text-align: center;
+    transition: var(--transition-fast);
+    box-shadow: none;
+    line-height: 1.4;
+}
+html.dark .inventory-item button {
+    color: var(--bw-text-muted);
+    border-color: var(--bw-border-subtle);
+}
+
+.inventory-item button:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover);
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-medium);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+html.dark .inventory-item button:hover:not(:disabled) {
+    background-color: var(--bw-bg-hover);
+    color: var(--bw-text-darkest);
+    border-color: var(--bw-border-dark);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.inventory-item button:active:not(:disabled) {
+    background-color: var(--bw-border-light);
+    color: var(--bw-text-darkest);
+    transform: translateY(0px) scale(0.98);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+}
+html.dark .inventory-item button:active:not(:disabled) {
+    background-color: var(--bw-bg-surface);
+    color: var(--bw-text-darkest);
+    transform: translateY(0px) scale(0.98);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+/* Inventory Filter/Sort Controls */
+#inventory-sort-controls,
+#inventory-filter-controls {
+    display: flex;
+    flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+    justify-content: flex-start; /* Align to start for a cleaner look */
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg); /* Adjusted margin */
+    padding: var(--spacing-sm); /* Compact padding */
+    background-color: var(--bw-bg-light); /* Solid light background for clarity */
+    border-radius: var(--radius-md);
+    border: 1px solid var(--bw-border-subtle);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.03); /* Subtle inset shadow */
+}
+html.dark #inventory-sort-controls,
+html.dark #inventory-filter-controls {
+    background-color: var(--bw-bg-surface);
+    border-color: var(--bw-border-medium);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#inventory-sort-controls button,
+#inventory-filter-controls button {
+    background-color: var(--bw-bg-white); /* White buttons */
+    color: var(--bw-text-dark); /* Darker text for inactive filters */
+    border: 1px solid var(--bw-border-subtle); /* Subtle border */
+    transition: var(--transition-fast);
+    padding: var(--spacing-sm) var(--spacing-md); /* Use base game-button padding */
+    font-size: 0.75rem;
+    border-radius: var(--radius-sm);
+    text-transform: capitalize;
+    letter-spacing: normal;
+}
+html.dark #inventory-sort-controls button,
+html.dark #inventory-filter-controls button {
+    background-color: var(--bw-bg-light); /* Darker background for buttons */
+    color: var(--bw-text-dark); /* Darker text for inactive filters */
+    border-color: var(--bw-border-subtle);
+}
+
+#inventory-sort-controls button:hover,
+#inventory-filter-controls button:hover {
+    background-color: var(--bw-bg-hover); /* Subtle hover for inactive buttons */
+    color: var(--bw-accent-text);
+    border-color: var(--bw-accent-primary-hover);
+    transform: translateY(-1px); /* Keep lift consistent */
+}
+html.dark #inventory-sort-controls button:hover,
+html.dark #inventory-filter-controls button:hover {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text); /* Text color for active/hovered accent */
+    border-color: var(--bw-accent-primary-hover);
+}
+
+#inventory-filter-controls button.active-filter {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text);
+    border-color: var(--bw-accent-primary-hover);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 123, 255, 0.15); /* Accent shadow for active filter */
+}
+html.dark #inventory-filter-controls button.active-filter {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text); /* Ensure contrast */
+    border-color: var(--bw-accent-primary-hover);
+    box-shadow: 0 1px 3px rgba(96, 165, 250, 0.3);
+}
+
+#inventory-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm); /* Slightly tighter gap for lists */
+    margin-bottom: var(--spacing-xl);
+}
+
+#inventory-empty-msg {
+    text-align: center;
+    color: var(--bw-text-muted);
+    font-style: italic;
+    margin-top: var(--spacing-lg);
+}
+html.dark #inventory-empty-msg {
+    color: var(--bw-text-muted);
+}
+
+/* --- Inventory Tabs --- */
+/* Container for tabs */
+.inventory-tabs-container {
+    margin-bottom: var(--spacing-lg); /* Space below the tab row */
+    border-bottom: 1px solid var(--bw-border-subtle); /* Line underneath the tabs */
+    /* padding-left: var(--spacing-md); /* Retained from original for alignment */
+    /* JS adds: flex flex-wrap gap-1. Set base display and gap. */
+    display: flex; 
+    gap: var(--spacing-xs); /* Default gap between tabs (0.25rem) */
+}
+html.dark .inventory-tabs-container {
+    border-bottom-color: var(--bw-border-subtle);
+}
+
+.inventory-tab-btn {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--bw-text-muted); /* Default to light mode */
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    margin-bottom: -1px; /* To make active border align with container border */
+
+    /* JS applies: px-1.5 (0.375rem), py-0.5 (0.125rem), text-xs (0.75rem) */
+    /* CSS base padding & font-size will be overridden by JS if stylePageControls runs */
+    padding: var(--spacing-xs) var(--spacing-sm); /* Base: 0.25rem 0.5rem */
+    font-size: 0.875rem; /* Base: a bit larger than text-xs for readability */
+    font-weight: 500; /* Medium weight for inactive tabs */
+
+    /* Override JS 'rounded' class for a tab-like appearance: top corners rounded, bottom flat */
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important; 
+}
+html.dark .inventory-tab-btn {
+    color: var(--bw-text-muted);
+}
+
+.inventory-tab-btn:hover {
+    color: var(--bw-text-darkest);
+    background-color: var(--bw-bg-hover); /* Subtle background on hover for non-active tabs */
+}
+html.dark .inventory-tab-btn:hover {
+    background-color: var(--bw-bg-hover);
+}
+
+.inventory-tab-btn.active-tab {
+    color: var(--bw-accent-primary);
+    border-bottom-color: var(--bw-accent-primary);
+    font-weight: 600;
+    background-color: var(--bw-bg-light); /* Light background for active tab to make it feel connected to content */
+}
+html.dark .inventory-tab-btn.active-tab {
+    color: var(--bw-accent-primary);
+    border-bottom-color: var(--bw-accent-primary);
+    background-color: var(--bw-bg-surface); /* Darker active tab background */
+}
+/* --- Forms & Inputs --- */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+textarea,
+select {
+    background-color: var(--bw-bg-white); /* Use variable */
+    border: 1px solid var(--bw-border-medium);
+    color: var(--bw-text-darkest);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm); /* Consistent small radius */
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding doesn't expand width */
+}
+html.dark input[type="text"],
+html.dark input[type="password"],
+html.dark input[type="email"],
+html.dark input[type="number"],
+html.dark textarea,
+html.dark select {
+    background-color: var(--bw-bg-light); /* Darker input fields */
+    border-color: var(--bw-border-subtle);
+    color: var(--bw-text-darkest);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--bw-accent-primary);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15); /* Softer, slightly larger focus ring */
+}
+html.dark input[type="text"]:focus,
+html.dark input[type="password"]:focus,
+html.dark input[type="email"]:focus,
+html.dark input[type="number"]:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+    border-color: var(--bw-accent-primary);
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); /* Adjusted focus ring for dark */
+}
+
+label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--bw-text-dark);
+    font-size: 0.875rem;
+}
+html.dark label {
+    color: var(--bw-text-dark);
+}
+
+/* --- Theme Toggle Button --- */
+.theme-toggle-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;  /* A common touch target size, good for icons */
+    height: 44px;
+    padding: var(--spacing-sm); /* Provides space around an icon if font-size is smaller */
+    background-color: var(--bw-bg-surface);
+    color: var(--bw-text-muted); /* Intended for an icon's color (e.g., sun/moon) */
+    border: 1px solid var(--bw-border-subtle);
+    border-radius: var(--radius-md); /* Matches other elements. Use 50% for a fully circular button. */
+    
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-soft);
+    font-size: 1.25rem; /* Example size for an icon. Adjust based on your icon set. */
+    line-height: 1; /* Helps vertically center a font-based icon */
+}
+
+/* Optional: Move text-shadows from inline HTML to CSS */
+#explore-pc-profile-header .relative.z-10 #explore-header-display-name {
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+#explore-pc-profile-header .relative.z-10 #explore-header-display-name + p { /* Targets the Adventurer subtitle */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+.theme-toggle-button:hover {
+    background-color: var(--bw-bg-hover);
+    color: var(--bw-text-darkest); /* Icon becomes darker/more prominent on hover */
+    border-color: var(--bw-border-medium); /* Or var(--bw-accent-primary) for more emphasis */
+    box-shadow: var(--shadow-interactive);
+}
+
+.theme-toggle-button:active {
+    transform: scale(0.95); /* Slight press effect */
+    background-color: var(--bw-bg-light); /* Adjust if a different active background is desired */
+    box-shadow: var(--shadow-soft); /* Can reduce shadow on active state or use an inset shadow */
+}
+
+/* --- Modals --- */
+/* Styling for the Trade Item Confirmation Modal by ID */
+/* The outer div with bg-opacity is handled by Tailwind, this styles the content panel */
+#trade-item-confirm-modal > div, .modal-content-panel { /* Generalize for other modals if needed */
+    border-radius: var(--radius-lg); /* Softer, larger radius for modal panels */
+    box-shadow: var(--shadow-modal); /* Prominent shadow for modals */
+    /* Tailwind classes already handle bg, shadow, border, rounded. This is for internal finesse. */
+}
+html.dark #trade-item-confirm-modal > div, html.dark .modal-content-panel {
+    background-color: var(--bw-bg-surface); /* Dark modal background */
+    box-shadow: var(--shadow-modal);
+}
+
+#trade-confirm-item-name { /* Already styled well with Tailwind, this is for minor tweaks if needed */
+    /* Example: letter-spacing: 0.02em; */
+}
+
+#trade-confirm-item-difficulty {
+    margin-top: calc(-1 * var(--spacing-sm)); /* Pull it up slightly under the title */
+    margin-bottom: var(--spacing-lg); /* Ensure enough space before details */
+}
+
+#trade-confirm-item-details {
+    /* Tailwind classes handle most of this. This is for text styling within. */
+    line-height: 1.5; /* Improve readability of stat lines */
+}
+
+#trade-confirm-item-details p.font-medium { /* For "Stats:" and "Effects:" subheadings */
+    color: var(--bw-text-darkest);
+    margin-top: var(--spacing-sm); /* Add a bit more space above these subheadings */
+}
+html.dark #trade-confirm-item-details p.font-medium {
+    color: var(--bw-text-darkest);
+}
+
+#trade-confirm-quantity-section label {
+    font-size: 0.85rem; /* Slightly smaller label for quantity */
+}
+/* Responsive adjustments for inventory items on smaller screens */
+@media (max-width: 639px) { /* Tailwind's 'sm' breakpoint */
+    .inventory-item {
+        flex-direction: column; /* Stack item info and actions vertically */
+        align-items: stretch; /* Make children take full width */
+        gap: var(--spacing-sm); /* Reduce gap when stacked */
+        padding: var(--spacing-sm);
+    }
+
+    .inventory-item > .flex-grow, /* Item info container */
+    .inventory-item > div:last-child { /* Action buttons container */
+        width: 100%; /* Ensure they take full width when stacked */
+    }
+
+    .inventory-item button {
+        flex-grow: 1; /* Allow buttons to grow equally if multiple in a row */
+    }
+}
+
+/* --- Battle Page --- */
+.battle-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.battle-stat-block {
+    background-color: var(--bw-bg-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg); /* Larger radius for stat blocks */
+    /* border: 1px solid var(--bw-border-subtle); */ /* REMOVED border */
+    box-shadow: var(--shadow-soft); /* Consistent soft shadow */
+    color: var(--bw-text-dark); /* Default to light mode */
+}
+html.dark .battle-stat-block {
+    background-color: var(--bw-bg-surface);
+    box-shadow: var(--shadow-soft);
+    color: var(--bw-text-dark);
+}
+
+.battle-stat-block h3 {
+     margin-bottom: var(--spacing-md);
+     font-weight: 600;
+     text-align: center;
+     border-bottom: 1px solid var(--bw-border-medium);
+     padding-bottom: var(--spacing-sm);
+     color: var(--bw-text-darkest);
+}
+html.dark .battle-stat-block h3 {
+     border-bottom-color: var(--bw-border-light);
+     color: var(--bw-text-darkest);
+}
+
+.battle-stat-block .text-sm {
+    text-align: left;
+    display: block;
+}
+.battle-stat-block .text-sm div {
+    margin-bottom: var(--spacing-xs);
+    color: var(--bw-text-dark); /* Default to light mode */
+}
+html.dark .battle-stat-block .text-sm div {
+    color: var(--bw-text-dark);
+}
+
+.battle-stat-block .text-sm div:last-child {
+    margin-bottom: 0;
+}
+
+
+.battle-actions {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+     gap: var(--spacing-md);
+     padding-top: var(--spacing-lg);
+     border-top: 1px solid var(--bw-border-medium);
+}
+html.dark .battle-actions {
+     border-top-color: var(--bw-border-light);
+}
+
+/* NEW: Container for Explore Stats (similar to battle) */
+.explore-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* --- Utility --- */
+.hidden-page { display: none; }
+
+/* Tab Pane Visibility */
+.tab-pane { display: none; }
+.hidden-pane {
+    display: none !important;
+}
+
+.tab-pane.active-pane { display: flex; }
+
+/* Apply battle block styling to explore stat blocks */
+/* Removed specific ID styling for explore stats as they are now handled by Tailwind utility classes in HTML for better flexibility */
+
+/* Style titles within explore blocks like battle titles */
+#explore-player-stats h3,
+#explore-enemy-stats h3 {
+     color: var(--bw-text-darkest);
+     margin-bottom: var(--spacing-lg);
+     font-weight: 600;
+     text-align: left;
+     padding-bottom: 0;
+     font-size: 1.5rem;
+}
+html.dark #explore-player-stats h3,
+html.dark #explore-enemy-stats h3 {
+     color: var(--bw-text-darkest);
+}
+
+/* Style stat lines within explore blocks like battle text */
+#explore-player-stats .stat-item,
+#explore-enemy-stats .stat-item {
+    margin-bottom: var(--spacing-xs);
+    color: var(--bw-text-dark); /* Default to light mode */
+}
+html.dark #explore-player-stats .stat-item,
+html.dark #explore-enemy-stats .stat-item {
+    color: var(--bw-text-dark);
+}
+/* --- Responsive --- */
+
+/* Exploration Dialog Box specific tweaks (if any) */
+#explore-dialog {
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Containers for action buttons on the exploration page */
+#explore-action-buttons,
+#explore-combat-actions,
+#combat-choice-buttons {
+    /* Handled by Tailwind grid classes in HTML */
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+html.dark #explore-action-buttons,
+html.dark #explore-combat-actions,
+html.dark #combat-choice-buttons {
+    border-top-color: var(--bw-border-light);
+}
+
+/* Mobile Optimizations (screens smaller than 640px, Tailwind's 'sm' breakpoint) */
+@media (max-width: 639px) {
+    /* Hide desktop-only announcement on mobile */
+    #desktop-announcement {
+        display: none;
+    }
+
+    /* General Mobile Heading Adjustments */
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        display: none;
+    }
+
+    .game-container {
+        border: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        /*min-height: 100vh;*/
+        border-radius: 0;
+        box-shadow: none;
+        flex-grow: 1; /* Allow game-container to grow and fill the body's flex column */
+        /* min-height: 100vh; /* This might be redundant if body provides height via flex */
+    }
+    /* NEW: Styles for when battle page is active on mobile */
+    body.battle-active-mobile .game-container {
+        display: none !important; /* Hide the game container */
+    }
+
+    body.battle-active-mobile #battle-page {
+        position: fixed; /* Take it out of normal flow */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        z-index: 1000;  /* Ensure it's on top of other content (except modals/overlays with higher z-index) */
+        padding: 0;     /* Override any existing padding to truly fill the screen */
+        margin: 0;      /* Ensure no margins */
+        border-radius: 0; /* Remove any border-radius it might have */
+        /* The existing flex properties on #battle-page (flex flex-col flex-grow) will manage its children within this new full-screen context */
+    }
+    /* END NEW */
+
+    .game-container::before {
+        display: none;
+    }
+
+    .page-section {
+        padding: var(--spacing-md);
+    }
+
+    .battle-stats-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .explore-stats-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .battle-stat-block .text-sm div,
+    #explore-player-stats .stat-item,
+    #explore-enemy-stats .stat-item {
+        font-size: 0.85rem;
+        padding: var(--spacing-xs) 0;
+        gap: var(--spacing-xs);
+        min-width: 0;
+    }
+
+    #explore-player-stats,
+    #explore-enemy-stats {
+        background-color: var(--bw-bg-white);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--bw-border-subtle);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    html.dark #explore-player-stats,
+    html.dark #explore-enemy-stats {
+        background-color: var(--bw-bg-surface);
+        border-color: var(--bw-border-medium);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    #explore-player-stats h3,
+    #explore-enemy-stats h3 {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-bottom: var(--spacing-sm);
+        padding-bottom: var(--spacing-xs);
+        border-bottom: 1px solid var(--bw-border-medium);
+        color: var(--bw-text-darkest);
+    }
+    html.dark #explore-player-stats h3,
+    html.dark #explore-enemy-stats h3 {
+        border-bottom-color: var(--bw-border-light);
+        color: var(--bw-text-darkest);
+    }
+
+    /* Prevent sort and filter buttons from stacking on mobile, allow horizontal scroll */
+    #inventory-sort-controls,
+    #inventory-filter-controls {
+        flex-wrap: nowrap !important; /* Override JS or base styles to prevent wrapping */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        /* Add a little padding at the bottom for the scrollbar to sit in */
+        /* Also, ensure the container itself doesn't have excessive vertical padding from JS if it was added */
+        padding-top: var(--spacing-xs) !important; /* Minimal top padding */
+        padding-bottom: var(--spacing-sm) !important; /* e.g., 8px, adjust as needed */
+    }
+    html.dark #inventory-sort-controls,
+    html.dark #inventory-filter-controls {
+        background-color: var(--bw-bg-surface); /* Darker background for scrollable area */
+        border-color: var(--bw-border-medium);
+    }
+
+    .dialog-box {
+        min-height: 120px;
+        max-height: 180px;
+    }
+
+    /* --- Game Dashboard (Home) Mobile Optimizations --- */
+    #game-dashboard-page.page-section {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        justify-content: flex-start;
+    }
+    html.dark #game-dashboard-page.page-section {
+        /* Dark mode styles for dashboard if needed, often handled by child elements */
+    }
+
+/* Smooth pop-up for landing page */
+.landing-hidden {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1);
+  pointer-events: none;
+}
+.landing-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+    #game-dashboard-page .dashboard-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-sm);
+    }
+
+    html.dark #game-dashboard-page .dashboard-actions {
+        /* Buttons inside should inherit dark mode styles */
+    }
+    #game-dashboard-page .dashboard-actions .game-button {
+        padding: var(--spacing-lg) var(--spacing-md);
+        font-size: 0.95rem;
+    }
+
+    .battle-log {
+        min-height: 150px;
+        max-height: 180px;
+    }
+    html.dark .battle-log {
+        /* Dark mode styles for battle log if needed, often handled by parent or variables */
+    }
+
+    }
+
+    /* --- Shop Page Mobile Optimizations --- */
+    #shop-page h2 {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-md);
+    }
+    #shop-page .mb-6.text-center {
+        margin-bottom: var(--spacing-md);
+        font-size: 0.8rem;
+    }
+     #shop-page .mb-8.text-gray-400 {
+        margin-bottom: var(--spacing-lg);
+        font-size: 0.8rem;
+    }
+
+    #shop-page .space-y-6 {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+    }
+    #shop-page .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+    }
+
+    #shop-page button[id^="toggle-"][id$="-btn"] {
+        font-size: 1rem;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    #shop-page button[id^="toggle-"][id$="-btn"] i[id$="-icon"] {
+        font-size: 0.8rem;
+    }
+
+    #shop-page div[id$="-content-container"],
+    #shop-page div[id="travel-routes-content"] {
+        padding: var(--spacing-md);
+        margin-top: var(--spacing-xs);
+    }
+
+    #shop-page #btn-sell-all-junk,
+    #shop-page #btn-sell-all-items,
+    #shop-page #btn-heal-player {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 0.8rem;
+    }
+    #shop-page .gold-key-item button,
+    #shop-page .treasure-chest-item button {
+        padding-top: var(--spacing-sm);
+        padding-bottom: var(--spacing-sm);
+        font-size: 0.8rem;
+    }
+    #shop-page .gold-key-item input[type="number"],
+    #shop-page .treasure-chest-item input[type="number"] {
+        padding: var(--spacing-sm) var(--spacing-xs);
+        font-size: 0.8rem;
+        width: 3.5rem;
+    }
+
+    #shop-page #shop-sell-list .inventory-item-card {
+        padding: var(--spacing-sm);
+    }
+    #shop-page #shop-sell-list .item-name {
+        font-size: 0.875rem;
+    }
+    #shop-page #shop-sell-list .item-meta,
+    #shop-page #shop-sell-list .item-stats-description {
+        font-size: 0.75rem;
+    }
+    #shop-page #shop-sell-pagination-controls {
+        padding-top: var(--spacing-sm);
+        padding-bottom: var(--spacing-sm);
+        margin-top: var(--spacing-sm);
+    }
+    #shop-page #shop-sell-pagination-controls button,
+    #shop-page #shop-sell-pagination-controls span {
+        font-size: 0.75rem;
+    }
+
+    #shop-page #btn-shop-back {
+        font-size: 0.9rem;
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+
+/* --- Fix for Button Text Visibility with High Rarity Styles --- */
+.enemy-block[class*="rarity-"] .game-button {
+    -webkit-text-fill-color: currentColor;
+    text-shadow: none !important;
+}
+
+.game-button.rarity-Mythic,
+.game-button.rarity-Legendary,
+.game-button.rarity-Celestial,
+.game-button.rarity-Divine,
+.game-button.rarity-Transcendent,
+.game-button.rarity-Primordial,
+.game-button.rarity-Cosmic,
+.game-button.rarity-Infinite,
+.game-button.rarity-Absolute,
+.game-button.rarity-Omega,
+.game-button.rarity-Alpha,
+.game-button.rarity-Genesis,
+.game-button.rarity-Voidtouched,
+.game-button.rarity-Shadow,
+.game-button.rarity-Abyssal,
+.game-button.rarity-Nightmare,
+.game-button.rarity-Subspatial,
+.game-button.rarity-Hyperdimensional,
+.game-button.rarity-Extradimensional,
+.game-button.rarity-PhaseContinuum,
+.game-button.rarity-Metaphysical,
+.game-button.rarity-Acausal,
+.game-button.rarity-Ontological {
+    -webkit-text-fill-color: currentColor;
+    background-image: none !important;
+    text-shadow: none !important;
+   }
+
+   /* --- Fix for Other Text (e.g., enemy index, stats) Visibility within Rarity-Styled Enemy Blocks --- */
+
+   .enemy-block[class*="rarity-"] .absolute.top-1.right-1 {
+       -webkit-text-fill-color: currentColor;
+       text-shadow: none !important;
+   }
+
+   .enemy-block[class*="rarity-"] p.text-sm,
+   .enemy-block[class*="rarity-"] p.text-xs.text-gray-400 {
+       -webkit-text-fill-color: currentColor;
+       text-shadow: none !important;
+   }
+
+select {
+    color-scheme: light;
+}
+html.dark select {
+    color-scheme: dark; /* Helps browser style native dropdown arrow for dark mode */
+}
+
+
+/* --- Home Page Player Stats Panel --- */
+#player-stats-panel {
+    background-color: var(--bw-bg-white);
+    /* border: 1px solid var(--bw-border-light); */ /* Lighter border - REMOVED */
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: var(--spacing-xl);
+}
+
+#player-stats-panel .panel-header {
+    background-color: var(--bw-bg-header-transparent-light); /* Use variable */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--bw-border-subtle);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+html.dark #player-stats-panel {
+    background-color: var(--bw-bg-surface);
+    border-color: var(--bw-border-medium);
+}
+html.dark #player-stats-panel .panel-header {
+    background-color: var(--bw-bg-header-transparent-dark); /* Use variable */
+    border-bottom-color: var(--bw-border-subtle);
+}
+
+#player-stats-panel .panel-header h3 {
+    color: var(--bw-text-darkest);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+html.dark #player-stats-panel .panel-header h3 {
+    color: var(--bw-text-darkest);
+}
+
+#player-stats-panel .panel-header button i {
+    transition: color var(--transition-fast);
+}
+
+#player-stats-panel #stats-container {
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+}
+
+#player-stats-panel #stats-container .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px dashed var(--bw-border-light);
+}
+html.dark #player-stats-panel #stats-container .stat-item {
+    border-bottom-color: var(--bw-border-light);
+}
+
+#player-stats-panel #stats-container .stat-item:last-child {
+    border-bottom: none;
+}
+html.dark #player-stats-panel #stats-container .stat-item:last-child {
+    border-bottom: none;
+}
+.modal-open-noscroll {
+    overflow: hidden;
+}
+/* Custom shadow for top only */
+.shadow-top-md {
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Active state for bottom navigation buttons */
+.bottom-nav-button.active-bottom-nav {
+    color: var(--bw-accent-primary); /* Use your theme's accent color */
+    /* background-color: rgba(0,0,0,0.03); /* Optional: very subtle background indication */
+}
+html.dark .bottom-nav-button.active-bottom-nav {
+    color: var(--bw-accent-primary);
+}
+
+/* Desktop Announcement Banner - from home.html, assuming ID is used for styling */
+#desktop-announcement {
+    /* It uses bg-bw-bg-hover in HTML, which is #f0f0f0 */
+    background-color: var(--bw-bg-banner-transparent-light) !important; /* Use variable */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    /* Ensure text color has enough contrast if not already handled by Tailwind */
+    color: var(--bw-text-dark) !important;
+}
+html.dark #desktop-announcement {
+    background-color: var(--bw-bg-banner-transparent-dark) !important; /* Use variable */
+    backdrop-filter: blur(5px);
+    color: var(--bw-text-dark) !important;
+}
+
+/* Chat Window Header - from home.html, targeting the first div child of #chat-window */
+#chat-window > div:first-child {
+    /* It uses bg-bw-bg-light in HTML, which is #f8f8f8 */
+    background-color: var(--bw-bg-chat-header-transparent-light) !important; /* Use variable */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    /* Ensure text color has enough contrast if not already handled by Tailwind */
+    color: var(--bw-text-darkest) !important;
+}
+html.dark #chat-window > div:first-child {
+    background-color: var(--bw-bg-chat-header-transparent-dark) !important; /* Use variable */
+    backdrop-filter: blur(5px);
+    color: var(--bw-text-darkest) !important;
+}
+
+/* --- Codex Page Styles --- */
+#codex-page {
+    /* page-section class already provides base padding and flex behavior */
+}
+
+.codex-section-title {
+    font-size: 1.75rem; /* Tailwind text-2xl */
+    font-weight: 600;
+    color: var(--bw-text-darkest);
+    margin-bottom: var(--spacing-lg); /* mb-4 */
+    padding-bottom: var(--spacing-sm); /* pb-2 */
+    border-bottom: 1px solid var(--bw-border-medium);
+    text-align: center;
+}
+html.dark .codex-section-title {
+    color: var(--bw-text-darkest);
+    border-bottom-color: var(--bw-border-light);
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .codex-section-title.text-left { /* For titles next to back buttons */
+        text-align: left;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+.codex-category-card {
+    background-color: var(--bw-bg-white);
+    border: 1px solid var(--bw-border-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-soft);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 220px; /* Ensure cards have a consistent minimum height */
+}
+html.dark .codex-category-card {
+    background-color: var(--bw-bg-surface);
+    border-color: var(--bw-border-medium);
+    box-shadow: var(--shadow-soft);
+}
+
+.codex-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-interactive);
+    border-color: var(--bw-accent-primary);
+}
+html.dark .codex-category-card:hover {
+    border-color: var(--bw-accent-primary);
+}
+
+.codex-card-icon-wrapper {
+    background-color: var(--bw-bg-light);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--bw-accent-primary);
+    transition: var(--transition-base);
+}
+html.dark .codex-card-icon-wrapper {
+    background-color: var(--bw-bg-light);
+    color: var(--bw-accent-primary);
+}
+
+.codex-category-card:hover .codex-card-icon-wrapper {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text);
+}
+html.dark .codex-category-card:hover .codex-card-icon-wrapper {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text); /* Ensure contrast */
+}
+
+.codex-card-icon {
+    font-size: 1.75rem; /* text-2xl */
+}
+
+.codex-card-title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600;
+    color: var(--bw-text-darkest);
+    margin-bottom: var(--spacing-xs);
+}
+html.dark .codex-card-title {
+    color: var(--bw-text-darkest);
+}
+
+.codex-card-description {
+    font-size: 0.875rem; /* text-sm */
+    color: var(--bw-text-muted);
+    line-height: 1.5;
+    flex-grow: 1; /* Allows description to take up space, pushing title/icon up */
+}
+html.dark .codex-card-description {
+    color: var(--bw-text-muted);
+}
+
+/* Entry List Items (if using buttons) */
+.codex-entry-item.game-button {
+    width: 100%;
+    justify-content: flex-start; /* Align text to left */
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+html.dark .codex-entry-item.game-button {
+    /* Uses .game-button dark styles */
+}
+
+/* Entry Detail Content Area */
+#codex-entry-content {
+    background-color: var(--bw-bg-white); /* Brighter than bg-light for content focus */
+    border: 1px solid var(--bw-border-light);
+    line-height: 1.7;
+    color: var(--bw-text-dark); /* Default to light mode */
+}
+html.dark #codex-entry-content {
+    background-color: var(--bw-bg-surface);
+    border-color: var(--bw-border-medium);
+    color: var(--bw-text-dark);
+}
+
+/* If not using Tailwind Typography 'prose' class, add some basic styling */
+#codex-entry-content h4 { text-align: left; font-size: 1.25rem; color: var(--bw-text-darkest); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm); border-bottom: 1px solid var(--bw-border-subtle); padding-bottom: var(--spacing-xs); }
+#codex-entry-content p { margin-bottom: var(--spacing-md); }
+#codex-entry-content ul { list-style: disc; margin-left: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+#codex-entry-content strong { color: var(--bw-text-darkest); }
+html.dark #codex-entry-content h4 { color: var(--bw-text-darkest); border-bottom-color: var(--bw-border-light); }
+html.dark #codex-entry-content p { /* color will be inherited */ }
+html.dark #codex-entry-content ul { /* color will be inherited */ }
+html.dark #codex-entry-content strong { color: var(--bw-text-darkest); }
+
+.hidden_codex_section { /* Utility class for JS to toggle sections */
+    display: none;
+}
+/* Codex Area Filter Dropdown */
+.codex-filter-main-button { /* General style for the main dropdown button */
+    /* Tailwind classes handle most of this, but you can add specifics here */
+}
+
+/* Styling for options within the dropdown, if needed beyond Tailwind */
+.codex-filter-option-btn {
+    /* Tailwind classes handle most of this */
+}
+html.dark .codex-filter-option-btn {
+    /* Uses .game-button dark styles */
+}
+.codex-filter-option-btn.active-filter-option {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text);
+    font-weight: 600;
+}
+html.dark .codex-filter-option-btn.active-filter-option {
+    background-color: var(--bw-accent-primary);
+    color: var(--bw-accent-text); /* Ensure contrast */
+}
+.codex-filter-option-btn:not(.active-filter-option):hover {
+    background-color: var(--bw-bg-hover);
+}
+
+/* --- Notification Pop-ups --- */
+.notification-popup {
+    position: fixed;
+    z-index: 1050; /* Adjust if it needs to be above or below other fixed elements like modals */
+    background-color: var(--bw-bg-surface); /* Uses surface color, good for toasts/notifications */
+    color: var(--bw-text-darkest);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-modal); /* Prominent shadow to stand out */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: none; /* Prevent interaction when hidden/transparent */
+    min-width: 280px; /* Minimum width for readability */
+    text-align: center; /* Center text by default */
+}
+
+html.dark .notification-popup {
+    /* Dark mode colors are typically handled by the CSS variables already.
+       --bw-bg-surface and --bw-text-darkest will adapt. */
+}
+
+.notification-popup.show {
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+/* Default: Mobile-first, positioned at the top of the screen */
+.notification-popup {
+    top: var(--spacing-md); /* e.g., 0.75rem from top */
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    transform: translateY(-150%); /* Start off-screen (top) */
+}
+.notification-popup.show {
+    transform: translateY(0); /* Slide into view */
+}
+
+/* PC View: Position at the bottom center */
+@media (min-width: 768px) { /* Applies to screens 768px wide and larger (Tailwind's 'md' breakpoint) */
+    .notification-popup {
+        top: auto; /* Remove top positioning */
+        left: 50%;
+        right: auto; /* Remove right positioning */
+        bottom: var(--spacing-xl); /* e.g., 1.5rem from bottom */
+        transform: translateX(-50%) translateY(150%); /* Start off-screen (bottom), horizontally centered */
+        max-width: 450px; /* Set a max-width for wider screens */
+    }
+
+    .notification-popup.show {
+        transform: translateX(-50%) translateY(0); /* Slide into view, horizontally centered */
+    }
+}
+/* --- End Notification Pop-ups --- */
+
+/* --- Mobile Chat Flyout White Background Override --- */
+/* These rules apply when screen is < 768px (mobile view) */
+@media (max-width: 767.98px) { /* Using .98px to be just under 'md' breakpoint */
+
+    /* Main chat flyout panel */
+    #chat-window {
+        background-color: #ffffff !important; /* Light mode: --bw-bg-white */
+        border-left-color: #dddddd !important; /* Light mode: --bw-border-subtle */
+    }
+
+    /* Chat Header (overrides existing general #chat-window > div:first-child rules) */
+    #chat-window > div:first-child {
+        background-color: rgba(248, 248, 248, 0.7) !important; /* Light mode: --bw-bg-chat-header-transparent-light */
+        border-bottom-color: #eeeeee !important; /* Light mode: --bw-border-light */
+        color: #0b090a !important; /* Base text color for header: Light mode --bw-text-darkest */
+    }
+    #chat-window > div:first-child h3 { /* Header title */
+         color: #0b090a !important; /* Light mode: --bw-text-emphasis */
+    }
+    /* Close button in header */
+    #chat-window #mobile-chat-close-btn {
+        color: #666666 !important; /* Light mode: --bw-text-muted */
+    }
+    #chat-window #mobile-chat-close-btn:hover {
+        color: #333333 !important; /* Light mode: --bw-text-dark */
+    }
+
+    /* Chat Messages Area */
+    #chat-window #chat-messages {
+        background-color: #f8f8f8 !important; /* Light mode: --bw-bg-light */
+        color: #333333 !important; /* Text color for messages: Light mode --bw-text-dark */
+    }
+    /* Scrollbar for messages area - ensure light theme */
+    #chat-window #chat-messages.pretty-scrollbar::-webkit-scrollbar-track {
+        background: #f8f8f8 !important; /* Light mode: --bw-bg-light */
+    }
+    #chat-window #chat-messages.pretty-scrollbar::-webkit-scrollbar-thumb {
+        background: #dddddd !important; /* Light mode: --bw-border-subtle */
+    }
+    #chat-window #chat-messages.pretty-scrollbar {
+        scrollbar-color: #dddddd #f8f8f8 !important; /* thumb track for Firefox (Light mode) */
+    }
+
+    /* Chat Input Area (the div wrapping input and send button) */
+    #chat-window > div:last-child { /* Assuming this is the input container div */
+        background-color: #ffffff !important; /* Can be white or #f8f8f8 */
+        border-top-color: #eeeeee !important; /* Light mode: --bw-border-light */
+    }
+
+    /* Chat Input Field */
+    #chat-window #chat-input {
+        background-color: #ffffff !important; /* Light mode: --bw-bg-white */
+        color: #0b090a !important; /* Light mode: --bw-text-darkest */
+        border-color: #cccccc !important; /* Light mode: --bw-border-medium */
+    }
+    #chat-window #chat-input::placeholder {
+        color: #666666 !important; /* Light mode: --bw-text-muted */
+    }
+    #chat-window #chat-input:focus {
+        border-color: #007bff !important; /* Light mode: --bw-accent-primary */
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15) !important; /* Light mode focus shadow */
+    }
+
+    /* Chat Send Button - Force light mode appearance */
+    #chat-window #chat-send-button.button-primary,
+    #chat-window #chat-send-button.button-primary i { /* Target icon as well */
+        background-color: #007bff !important; /* Light mode: --bw-accent-primary */
+        color: #ffffff !important; /* Light mode: --bw-accent-text */
+        border-color: #007bff !important; /* Light mode: --bw-accent-primary */
+    }
+    #chat-window #chat-send-button.button-primary:hover:not(:disabled) {
+        background-color: #0056b3 !important; /* Light mode: --bw-accent-primary-hover */
+        border-color: #0056b3 !important;
+    }
+}
+
+/* --- Prevent Text Selection --- */
+body {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */
+    cursor: default;
+}
+
+/* --- Allow Text Selection for Input Fields and Textareas --- */
+input,
+textarea {
+    -webkit-user-select: text; /* Safari */
+    -moz-user-select: text;    /* Firefox */
+    -ms-user-select: text;     /* Internet Explorer/Edge */
+    user-select: text;         /* Standard syntax */
+}
+
+/* Toggle Switch for Profile Text Color */
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: #48bb78; /* Tailwind green-400 for "on" state */
+}
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #48bb78; /* Tailwind green-400 for "on" state */
+}
+html.dark .toggle-checkbox {
+    background-color: var(--bw-bg-light); /* Dark mode background for the toggle knob */
+}
+html.dark .toggle-checkbox:checked {
+    border-color: var(--bw-accent-secondary); /* Dark mode accent for "on" state */
+}
+html.dark .toggle-checkbox:checked + .toggle-label {
+    background-color: var(--bw-accent-secondary); /* Dark mode accent for "on" state */
+}
+.toggle-label {
+    transition: background-color 0.2s ease-in-out;
+}
+.toggle-checkbox {
+    transition: right 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Profile Text Color Overrides */
+/* Ensure forced profile text colors override theme and inline styles (e.g., from BBCode) */
+
+/* For elements with ID 'profile-player-username' or 'profile-player-bio' */
+/* End of CSS */
